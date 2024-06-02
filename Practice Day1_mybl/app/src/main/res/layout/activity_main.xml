@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardElevation="2dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,8 +23,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            >
+            android:background="@color/white">
+
 
 
             <androidx.constraintlayout.widget.Guideline
@@ -39,62 +40,66 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+
                 android:text="Current Balance"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:textColor="#837D7D"
-
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/takaSymbol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="৳"
-                android:textColor="#837D7D"
-                android:textSize="26sp"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_goneMarginLeft="16dp"
-                app:layout_goneMarginTop="32dp" />
+                app:layout_constraintBottom_toTopOf="@+id/balance"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
 
             <TextView
                 android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="2156.08"
-
-                android:textColor="@color/black"
+                android:text="৳"
+                android:textColor="#9C9999"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/takaSymbol"
-                app:layout_constraintTop_toTopOf="@+id/takaSymbol" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/validText"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_goneMarginLeft="16dp"
+                app:layout_goneMarginTop="32dp"
+                tools:layout_editor_absoluteX="32dp" />
 
             <TextView
                 android:id="@+id/validText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="dsdsdsdggfgdg"
+                app:layout_constraintStart_toStartOf="parent"
                 android:textColor="#837D7D"
-
-                app:layout_constraintStart_toStartOf="@+id/takaSymbol"
-                app:layout_constraintTop_toBottomOf="@+id/balance" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/rechargeBtn"
+                app:layout_constraintTop_toBottomOf="@+id/balance"
+                tools:layout_editor_absoluteX="31dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rechargeBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
                 android:background="@drawable/button_back"
                 android:padding="4dp"
-                app:layout_constraintEnd_toEndOf="@+id/guideline"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline5">
+                app:layout_constraintEnd_toEndOf="@+id/guideline"
+                app:layout_constraintBottom_toTopOf="@+id/loanbtn"
+                app:layout_constraintTop_toBottomOf="@+id/validText"
+                tools:layout_editor_absoluteX="28dp">
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -141,17 +146,21 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/takeloan_btn"
+                android:id="@+id/loanbtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/button3_back"
-                android:padding="4dp"
+
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/guideline"
-                app:layout_constraintStart_toStartOf="@+id/btn1"
-                app:layout_constraintTop_toBottomOf="@+id/btn1">
+                android:background="@drawable/button2_back"
+                android:padding="4dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/duo_loanbtn"
+                app:layout_constraintTop_toBottomOf="@+id/rechargeBtn"
+                tools:layout_editor_absoluteX="31dp">
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -183,7 +192,6 @@
                     />
 
 
-
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/arrowright"
                     android:layout_width="wrap_content"
@@ -199,20 +207,23 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/duo_loanbtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
 
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/guideline"
                 android:background="@drawable/button2_back"
                 android:padding="4dp"
-                app:layout_constraintEnd_toEndOf="@+id/guideline"
-                app:layout_constraintStart_toStartOf="@+id/btn1"
-                app:layout_constraintTop_toBottomOf="@+id/btn1">
+
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loanbtn"
+                tools:layout_editor_absoluteX="28dp">
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -270,17 +281,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintGuide_percent=".48"
-                app:layout_constraintStart_toStartOf="parent" />
-
             <View
                 android:layout_width="1.2dp"
                 android:layout_height="0dp"
@@ -296,8 +296,8 @@
                 android:layout_width="33dp"
                 android:layout_height="33dp"
 
-                android:layout_marginTop="26dp"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="26dp"
                 android:background="@drawable/account_background"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent"
@@ -387,9 +387,9 @@
                 android:layout_width="33dp"
                 android:layout_height="33dp"
                 android:layout_marginTop="26dp"
-                android:background="#C3DCD9"
                 android:layout_marginBottom="26dp"
-               app:layout_constraintBottom_toBottomOf="parent"
+                android:background="#C3DCD9"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/shapeableImageView2"
                 app:layout_constraintTop_toBottomOf="@+id/shapeableImageView2"
                 app:shapeAppearanceOverlay="@style/circleImageView"

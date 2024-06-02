@@ -1,9 +1,13 @@
 package com.example.rechargemybl.View
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -32,19 +36,15 @@ class MainActivity : AppCompatActivity() {
 
 
         val initialText = "Valid till 25 Jun, 2024";
-        val currentBalance = "1400.00"
-        binding.validText.text = makeSpannableString(initialText)
-        binding.balance.text = formationHandle(currentBalance)
+        val currentBalance = "1400.44664"
+        binding.validText.text = makeValidateString(initialText)
 
+        binding.balance.text = formationHandle(currentBalance)
 
     }
 
 
-
-
-
-
-    private fun makeSpannableString(initialText: String): SpannableString {
+    private fun makeValidateString(initialText: String): SpannableString {
 
         return SpannableString(initialText).apply {
             setSpan(
@@ -54,17 +54,36 @@ class MainActivity : AppCompatActivity() {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 
-        };
+        }
     }
 
 
     @SuppressLint("DefaultLocale")
-    private fun formationHandle(initialBalance: String): String {
+    private fun formationHandle(initialBalance: String): SpannableString {
+
 
         val convertedBalance = initialBalance.toDouble()
         val fomrattedBalance: String
-        if (convertedBalance % 1.0 == 0.0) fomrattedBalance = String.format("%.0f", convertedBalance)
+
+        if (convertedBalance % 1.0 == 0.0) fomrattedBalance =
+            String.format("%.0f", convertedBalance)
         else fomrattedBalance = String.format("%.2f", convertedBalance)
-        return fomrattedBalance
+
+
+        val finalString = "৳ ${fomrattedBalance}"
+
+        println("final String" + finalString)
+        return  SpannableString(finalString).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                2,
+                finalString.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+
+            )
+        }
+
+
+//        return spannableBalace
     }
 }
