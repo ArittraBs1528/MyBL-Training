@@ -1,7 +1,9 @@
 package com.example.rechargemybl.View
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
@@ -34,10 +36,10 @@ class MainActivity : AppCompatActivity() {
 
 
         val initialText = "Valid till 25 Jun, 2024";
-        val currentBalance = "1400.00"
+        val currentBalance = "1400.44664"
         binding.validText.text = makeValidateString(initialText)
-//        binding.balance.text = formationHandle(currentBalance)
 
+        binding.balance.text = formationHandle(currentBalance)
 
     }
 
@@ -69,18 +71,19 @@ class MainActivity : AppCompatActivity() {
 
 
         val finalString = "৳ ${fomrattedBalance}"
-        val spannableBalace = SpannableString(finalString).apply {
+
+        println("final String" + finalString)
+        return  SpannableString(finalString).apply {
             setSpan(
-                ForegroundColorSpan(resources.getColor(R.color.black)),
+                ForegroundColorSpan(Color.BLACK),
                 2,
-                initialBalance.length,
+                finalString.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
 
             )
-
         }
 
 
-        return spannableBalace
+//        return spannableBalace
     }
 }
