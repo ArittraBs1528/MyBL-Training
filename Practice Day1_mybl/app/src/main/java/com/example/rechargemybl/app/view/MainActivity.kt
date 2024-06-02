@@ -1,9 +1,8 @@
-package com.example.rechargemybl.View
+package com.example.rechargemybl.app.view
 
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.provider.CalendarContract.Colors
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
@@ -15,7 +14,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.rechargemybl.R
 import com.example.rechargemybl.databinding.ActivityMainBinding
-import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
 

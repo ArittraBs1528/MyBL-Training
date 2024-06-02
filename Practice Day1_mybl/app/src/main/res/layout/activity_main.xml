@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#E6D8D8"
     android:layoutDirection="ltr"
-    tools:context=".View.MainActivity">
+    tools:context=".app.view.MainActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -291,6 +291,8 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shapeableImageView1"
                 android:layout_width="33dp"
@@ -302,7 +304,18 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/circleImageView"
-                app:srcCompat="@drawable/wifi_icon" />
+                app:srcCompat="@drawable/intenet_icon9" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/balance_null"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                app:layout_constraintTop_toTopOf="@+id/shapeableImageView1"
+                app:layout_constraintBottom_toTopOf="@+id/shapeableImageView1"
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView1"
+                app:layout_constraintStart_toEndOf="@+id/shapeableImageView1"
+                app:shapeAppearanceOverlay="@style/shapeBackground"
+                app:srcCompat="@drawable/warning" />
 
             <TextView
                 android:id="@+id/textView2"
