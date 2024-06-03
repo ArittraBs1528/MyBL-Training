@@ -39,8 +39,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
 
                     android:id="@+id/user_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="50dp"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                     android:layout_marginLeft="6dp"
                     android:text="Charlie"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="10sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/user_no"
                     app:layout_constraintStart_toEndOf="@id/user_icon"
@@ -70,7 +70,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="01409900062"
                     android:textColor="@color/white"
-                    android:textSize="10sp"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/user_icon"
                     app:layout_constraintStart_toStartOf="@+id/user_name"
@@ -142,23 +142,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintGuide_percent=".55"
+                app:layout_constraintGuide_percent=".57"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
                 android:text="Current Balance"
                 android:textColor="#837D7D"
                 app:layout_constraintBottom_toTopOf="@+id/balance"
-
+                android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.48"
                 app:layout_constraintVertical_chainStyle="packed" />
 
 
@@ -171,7 +169,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="৳"
                 android:textColor="#9C9999"
-                android:textSize="26sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/validText"
                 app:layout_constraintStart_toStartOf="parent"
@@ -189,6 +187,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="dsdsdsdggfgdg"
                 android:textColor="#837D7D"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toTopOf="@+id/rechargeBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/balance"
@@ -199,11 +198,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="13dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/button_back"
-                android:padding="4dp"
+                android:padding="3dp"
                 app:layout_constraintBottom_toTopOf="@+id/loanbtn"
                 app:layout_constraintEnd_toEndOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -231,7 +230,7 @@
                     android:layout_marginStart="8dp"
                     android:text="Recharge"
                     android:textColor="#FBF4F4"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/energyicon"
                     app:layout_constraintStart_toEndOf="@+id/energyicon"
@@ -322,17 +321,17 @@
                 android:layout_width="0dp"
 
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/button2_back"
 
-                android:padding="4dp"
+                android:padding="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loanbtn"
-                tools:layout_editor_absoluteX="28dp">
+                >
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -355,7 +354,7 @@
                     android:layout_marginStart="8dp"
                     android:text="Loan Due"
                     android:textColor="#301F1F"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/energyicon3"
                     app:layout_constraintStart_toEndOf="@+id/energyicon3"
@@ -370,8 +369,9 @@
                     android:text="TK. 17"
                     android:textColor="#F44336"
                     android:textStyle="bold"
+                    android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="@+id/arrowright3"
-                    app:layout_constraintHorizontal_bias="0.26"
+                    app:layout_constraintHorizontal_bias="0.56"
                     app:layout_constraintStart_toEndOf="@+id/recharge3"
                     app:layout_constraintTop_toTopOf="@+id/recharge3" />
 
@@ -394,8 +394,8 @@
                 android:layout_width="1.2dp"
                 android:layout_height="0dp"
 
-                android:layout_marginVertical="16dp"
-                android:background="#D5D5D5"
+                android:layout_marginVertical="18dp"
+                android:background="#EEEEEE"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -403,11 +403,11 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shapeableImageView1"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
 
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="26dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
                 android:background="@drawable/account_background"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent"
@@ -433,6 +433,7 @@
                 android:layout_marginStart="10dp"
                 android:text="0"
                 android:textStyle="bold"
+                android:textSize="11sp"
                 app:layout_constraintBottom_toTopOf="@+id/internet_unit"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView1"
                 app:layout_constraintTop_toTopOf="@+id/shapeableImageView1"
@@ -444,7 +445,7 @@
                 android:layout_height="wrap_content"
                 android:text="MB"
                 android:textColor="#837D7D"
-
+                android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView1"
                 app:layout_constraintStart_toStartOf="@+id/internet_amount"
                 app:layout_constraintTop_toBottomOf="@+id/internet_amount" />
@@ -462,9 +463,9 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shapeableImageView2"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:layout_marginTop="26dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="24dp"
                 android:background="#C3DCD9"
                 app:layout_constraintStart_toStartOf="@+id/shapeableImageView1"
                 app:layout_constraintTop_toBottomOf="@+id/shapeableImageView1"
@@ -477,6 +478,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="330"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView2"
                 app:layout_constraintTop_toTopOf="@+id/shapeableImageView2" />
@@ -487,6 +489,7 @@
                 android:layout_height="wrap_content"
                 android:text="Min"
                 android:textColor="#837D7D"
+                android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView2"
                 app:layout_constraintStart_toStartOf="@+id/minute_amount"
                 app:layout_constraintTop_toBottomOf="@+id/minute_amount" />
@@ -505,10 +508,10 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shapeableImageView3"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginBottom="26dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
                 android:background="#C3DCD9"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/shapeableImageView2"
