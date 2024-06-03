@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintGuide_percent=".57"
+                app:layout_constraintGuide_percent=".55"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -169,7 +169,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="৳"
                 android:textColor="#9C9999"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/validText"
                 app:layout_constraintStart_toStartOf="parent"
@@ -203,7 +203,7 @@
                 android:layout_marginEnd="16dp"
                 android:clickable="true"
                 android:background="@drawable/button_back"
-                android:padding="3dp"
+                android:padding="3.5dp"
 
                 app:layout_constraintBottom_toTopOf="@+id/loanbtn"
                 app:layout_constraintEnd_toEndOf="@+id/guideline"
@@ -328,7 +328,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/button2_back"
 
-                android:padding="3dp"
+                android:padding="3.5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
@@ -468,7 +468,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="24dp"
-                android:background="#C3DCD9"
+                android:background="#B2E5E8E8"
                 app:layout_constraintStart_toStartOf="@+id/shapeableImageView1"
                 app:layout_constraintTop_toBottomOf="@+id/shapeableImageView1"
                 app:shapeAppearanceOverlay="@style/circleImageView"
@@ -514,7 +514,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:background="#C3DCD9"
+                android:background="#B2E5E8E8"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/shapeableImageView2"
                 app:layout_constraintTop_toBottomOf="@+id/shapeableImageView2"

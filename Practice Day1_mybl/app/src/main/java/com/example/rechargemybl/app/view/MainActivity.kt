@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        displayUserReachargeSection(user3);
+        displayUserReachargeSection(user2);
 
     }
 
