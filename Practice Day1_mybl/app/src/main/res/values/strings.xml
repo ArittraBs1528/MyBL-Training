@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RechargeMybl</string>
+    <string name="timeFormat">%1$d minutes ago</string>
 </resources>

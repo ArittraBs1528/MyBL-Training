@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        displayUserReachargeSection(user3);
+        displayUserReachargeSection(user1);
 
     }
 
@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         //handl loan button section
         if (user.Loan_due != null)
             binding.dueLoanAmount.text = "Tk. " + user.Loan_due.toString()
+//            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
         else if (user.can_take_loan != null) {
             binding.loanbtn.visibility = View.VISIBLE
             binding.duoLoanbtn.visibility = View.GONE
