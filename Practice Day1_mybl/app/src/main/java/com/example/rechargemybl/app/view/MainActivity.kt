@@ -2,7 +2,6 @@ package com.example.rechargemybl.app.view
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -15,7 +14,6 @@ import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.rechargemybl.R
@@ -64,15 +62,15 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        displayUserReachargeSection(user1);
+        displayUserReachargeSection(user3);
 
     }
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     private fun displayUserReachargeSection(user: Balance) {
         val initialText = "Valid till 25 Jun, 2024";
-        var internet_amount = (user.internet / 1024.0)
+        val internetAmount = (user.internet / 1024.0)
 
 
         //handle basic details section
@@ -93,8 +91,7 @@ class MainActivity : AppCompatActivity() {
             binding.loanbtn.visibility = View.VISIBLE
             binding.duoLoanbtn.visibility = View.GONE
             binding.takeLoan.text = "Get ${user.can_take_loan} Tk Loan"
-        }
-        else{
+        } else {
             binding.loanbtn.visibility = View.GONE
             binding.duoLoanbtn.visibility = View.GONE
 
@@ -102,20 +99,22 @@ class MainActivity : AppCompatActivity() {
 
 
         //handle internet section
-        if (internet_amount == 0.00) {
+        if (internetAmount == 0.00) {
             binding.balanceNull.visibility = View.VISIBLE
-        } else if (internet_amount < 1.00) {
+        } else if (internetAmount < 1.00) {
             binding.internetAmount.text =
-                (String.format("%.1f", internet_amount).toDouble() * 1000.00).toString()
+                (String.format("%.1f", internetAmount).toDouble() * 1000.00).toString()
             binding.internetUnit.text = "MB"
         } else {
-            binding.internetAmount.text = String.format("%.2f", internet_amount)
+            binding.internetAmount.text = String.format("%.2f", internetAmount)
             binding.internetUnit.text = "GB"
         }
 
 
         //handle minute section
-        binding.minuteAmount.text = user.min.toString()
+        var minuteAmount = user.min.toString()
+        binding.minuteAmount.text = minuteAmount.split(".")[0]
+        binding.minSec.text = "Min " + minuteAmount.split(".")[1]
 
 
         //handle sms section
@@ -147,9 +146,9 @@ class MainActivity : AppCompatActivity() {
             String.format("%.0f", convertedBalance)
         else fomrattedBalance = String.format("%.2f", convertedBalance)
 
-        val finalString = "৳ ${fomrattedBalance}"
+        val finalString = "৳ $fomrattedBalance"
 
-        println("final String" + finalString)
+//        println("final String" + finalString)
         return SpannableString(finalString).apply {
             setSpan(
                 ForegroundColorSpan(Color.BLACK),
@@ -161,10 +160,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setStatusBarColor(@ColorInt color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window: Window = window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = color
-        }
+        val window: Window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = color
     }
 }

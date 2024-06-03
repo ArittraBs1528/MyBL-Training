@@ -433,7 +433,7 @@
                 android:layout_marginStart="10dp"
                 android:text="0"
                 android:textStyle="bold"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/internet_unit"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView1"
                 app:layout_constraintTop_toTopOf="@+id/shapeableImageView1"
@@ -445,7 +445,7 @@
                 android:layout_height="wrap_content"
                 android:text="MB"
                 android:textColor="#837D7D"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView1"
                 app:layout_constraintStart_toStartOf="@+id/internet_amount"
                 app:layout_constraintTop_toBottomOf="@+id/internet_amount" />
@@ -478,18 +478,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="330"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView2"
                 app:layout_constraintTop_toTopOf="@+id/shapeableImageView2" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/min_sec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Min"
                 android:textColor="#837D7D"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView2"
                 app:layout_constraintStart_toStartOf="@+id/minute_amount"
                 app:layout_constraintTop_toBottomOf="@+id/minute_amount" />
@@ -526,6 +526,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="0"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView3"
                 app:layout_constraintTop_toTopOf="@+id/shapeableImageView3" />
@@ -535,6 +536,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SMS"
+                android:textSize="9sp"
                 android:textColor="#837D7D"
                 app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView3"
                 app:layout_constraintStart_toStartOf="@+id/sms_amount"
