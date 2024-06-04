@@ -14,9 +14,12 @@ import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.adapter.rcvAdapter
@@ -75,6 +78,14 @@ class MainActivity : AppCompatActivity() {
         binding.rcv1.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rcv1.adapter = rcvAdapter(userInfo)
+
+        var dividerItemDecoration = DividerItemDecoration(this,RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let {
+            dividerItemDecoration.setDrawable(it)
+        }
+
+
+        binding.rcv1.addItemDecoration(dividerItemDecoration)
 
 
     }
