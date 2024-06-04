@@ -70,11 +70,12 @@ class MainActivity : AppCompatActivity() {
         userInfo.add(user2)
         userInfo.add(user3)
 
-        displayUserReachargeSection(user3);
+        displayUserReachargeSection(user1);
 
         binding.rcv1.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rcv1.adapter = rcvAdapter(userInfo)
+
 
     }
 
