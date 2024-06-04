@@ -47,7 +47,6 @@ class rcvAdapter(val arrayList: ArrayList<Balance>) : RecyclerView.Adapter<rcvAd
 
         val userInfo = arrayList[position]
 
-        holder.internetAmount.text = userInfo.internet.toString()
         holder.internetUnit.text = "MB"
         holder.minAmount.text = userInfo.min.toString()
         holder.minSec.text = "Min"

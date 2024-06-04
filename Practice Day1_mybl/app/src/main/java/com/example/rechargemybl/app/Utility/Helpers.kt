@@ -56,6 +56,7 @@ class Helpers {
         }
 
 
+        @SuppressLint("DefaultLocale")
         fun handleInternet(binding: ActivityMainBinding, internetAmount: Double) {
             if (internetAmount == 0.00) {
                 binding.balanceNull.visibility = View.VISIBLE
@@ -71,6 +72,7 @@ class Helpers {
         }
 
 
+        @SuppressLint("DefaultLocale")
         fun handleInternet(holder: rcvAdapter.rcvHolder, internetAmount: Double) {
             if (internetAmount == 0.00) {
                 holder.balanceNull.visibility = View.VISIBLE
