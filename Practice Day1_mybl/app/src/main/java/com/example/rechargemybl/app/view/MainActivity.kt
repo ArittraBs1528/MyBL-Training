@@ -6,24 +6,28 @@ import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
+
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
-import com.example.rechargemybl.app.adapter.rcvAdapter
-import com.example.rechargemybl.app.model.Balance
+import com.example.rechargemybl.app.adapter.UserAdapter
+
+import com.example.rechargemybl.app.model.UserDao
+
 import com.example.rechargemybl.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var user1: Balance
-    private lateinit var user2: Balance
-    private lateinit var user3: Balance
+    private lateinit var user1: UserDao
+    private lateinit var user2: UserDao
+    private lateinit var user3: UserDao
+
+    private val peopleAdapter = UserAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,49 +43,42 @@ class MainActivity : AppCompatActivity() {
         }
         setStatusBarColor(resources.getColor(R.color.orange))
 
-        val userInfo = ArrayList<Balance>()
+        preparePeopleListView()
 
-        user1 = Balance(
-            "1400.0", 40,
-            null,
-            930.45, 0.00,
-            50, null
-        )
-        user2 = Balance(
-            "4.68", null,
-            90,
-            930.45, 14500.00,
-            90, null
-        )
 
-        user3 = Balance(
-            "1157.658", null,
-            null,
-            930.45, 500.00,
-            90, null
-        )
+        val userInfo = createUsers()
 
-        userInfo.add(user1)
-        userInfo.add(user2)
-        userInfo.add(user3)
-
-        displayUserReachargeSection(user1);
-
-        binding.rcv1.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rcv1.adapter = rcvAdapter(userInfo)
-
-        var dividerItemDecoration = DividerItemDecoration(this,RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let {
-            dividerItemDecoration.setDrawable(it)
-        }
-
-        binding.rcv1.addItemDecoration(dividerItemDecoration)
+        displayUserReachargeSection(userInfo[1]);
+//
+//        binding.rcv1.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//        binding.rcv1.adapter = RcvAdapter(userInfo)
+//
+//        var dividerItemDecoration = DividerItemDecoration(this,RecyclerView.VERTICAL)
+//        ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let {
+//            dividerItemDecoration.setDrawable(it)
+//        }
+//
+//        binding.rcv1.addItemDecoration(dividerItemDecoration)
 
     }
 
+    private fun preparePeopleListView() {
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+
+        val userInfo = createUsers()
+
+
+        peopleAdapter.submitData(userInfo)
+
+        binding.peopleList.layoutManager = layoutManager
+        binding.peopleList.addItemDecoration(itemDecoration)
+        binding.peopleList.adapter = peopleAdapter
+    }
+
     @SuppressLint("SetTextI18n", "DefaultLocale")
-    private fun displayUserReachargeSection(user: Balance) {
+    private fun displayUserReachargeSection(user: UserDao) {
 
         //handle valid text
         val initialText = "Valid till 25 Jun, 2024";
@@ -108,10 +105,15 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         //handle minute section
         var minuteAmount = user.min.toString()
-        binding.minuteAmount.text = Helpers.splitMinutesAndSeconds(minuteAmount)[0]
-        binding.minSec.text = "Min " + Helpers.splitMinutesAndSeconds(minuteAmount)[1]
+        val pair = Helpers.splitMinutesAndSeconds(minuteAmount);
+        val minutes = pair.first
+        val seconds = pair.second
+        binding.minuteAmount.text = minutes
+        binding.minSec.text = "Min " + seconds
+
 
 
         //handle sms section
@@ -124,5 +126,35 @@ class MainActivity : AppCompatActivity() {
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = color
+    }
+
+    private fun createUsers() : ArrayList<UserDao>{
+        val userInfo = ArrayList<UserDao>()
+
+        user1 = UserDao(1,
+            "1400.0", 40,
+            null,
+            930.45, 0.00,
+            50, null
+        )
+        user2 = UserDao(2,
+            "4.68", null,
+            90,
+            930.45, 14500.00,
+            90, null
+        )
+
+        user3 = UserDao(3,
+            "1157.658", null,
+            null,
+            930.45, 500.00,
+            90, null
+        )
+
+        userInfo.add(user1)
+        userInfo.add(user2)
+        userInfo.add(user3)
+
+        return userInfo
     }
 }

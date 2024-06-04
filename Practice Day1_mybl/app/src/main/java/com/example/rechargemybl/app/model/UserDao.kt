@@ -1,6 +1,7 @@
 package com.example.rechargemybl.app.model
 
-data class Balance(
+data class UserDao(
+    val id : Int,
     val current_balance: String,
     val Loan_due: Int?,
     val can_take_loan: Int?,

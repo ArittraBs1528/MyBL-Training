@@ -8,10 +8,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
-import com.example.rechargemybl.app.model.Balance
+import com.example.rechargemybl.app.model.UserDao
 import com.google.android.material.imageview.ShapeableImageView
 
-class rcvAdapter(val arrayList: ArrayList<Balance>) : RecyclerView.Adapter<rcvAdapter.rcvHolder>() {
+class rcvAdapter(val arrayList: ArrayList<UserDao>) : RecyclerView.Adapter<rcvAdapter.rcvHolder>() {
 
 
     class rcvHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -70,9 +70,9 @@ class rcvAdapter(val arrayList: ArrayList<Balance>) : RecyclerView.Adapter<rcvAd
 
 
         //handle minute section
-        var minuteAmount = userInfo.min.toString()
-        holder.minAmount.text = Helpers.splitMinutesAndSeconds(minuteAmount)[0]
-        holder.minSec.text = "Min " + Helpers.splitMinutesAndSeconds(minuteAmount)[1]
+//        var minuteAmount = userInfo.min.toString()
+//        holder.minAmount.text = Helpers.splitMinutesAndSeconds(minuteAmount)[0]
+//        holder.minSec.text = "Min " + Helpers.splitMinutesAndSeconds(minuteAmount)[1]
 
 
         //handle sms section

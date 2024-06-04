@@ -521,12 +521,21 @@
         app:layout_constraintTop_toBottomOf="@+id/recharge_Cart">
 
 
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rcv1"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_marginHorizontal="8dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv1"
+            android:id="@+id/peopleList"
             android:layout_marginHorizontal="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </androidx.cardview.widget.CardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

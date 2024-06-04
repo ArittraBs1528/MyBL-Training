@@ -10,15 +10,21 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
 import com.example.rechargemybl.app.adapter.rcvAdapter
-import com.example.rechargemybl.app.model.Balance
+import com.example.rechargemybl.app.model.UserDao
 import com.example.rechargemybl.databinding.ActivityMainBinding
 
 class Helpers {
     companion object {
 
 
-        fun splitMinutesAndSeconds(minSec: String): List<String> {
-            return minSec.split(".")
+        fun splitMinutesAndSeconds(minSec: String): Pair<String, String> {
+
+            if(minSec.contains(".")){
+                val (minutes, seconds) = minSec.split(".")
+                return Pair(minutes, seconds)
+            }
+
+            return Pair("0", "0")
         }
 
         fun highlightBoldSubstring(initialText: String): SpannableString {
@@ -88,7 +94,7 @@ class Helpers {
         }
 
 
-        fun configureLoanButtons(binding: ActivityMainBinding, user: Balance) {
+        fun configureLoanButtons(binding: ActivityMainBinding, user: UserDao) {
             if (user.Loan_due != null) binding.dueLoanAmount.text =
                 "Tk. " + user.Loan_due.toString()
 //            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
@@ -103,7 +109,7 @@ class Helpers {
 
         }
 
-        fun configureLoanButtons(binding: rcvAdapter.rcvHolder, user: Balance) {
+        fun configureLoanButtons(binding: rcvAdapter.rcvHolder, user: UserDao) {
             if (user.Loan_due != null) binding.due_Loan_amount.text =
                 "Tk. " + user.Loan_due.toString()
 //            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
@@ -115,7 +121,7 @@ class Helpers {
                 binding.loanbtn.visibility = View.GONE
                 binding.loanDuo.visibility = View.GONE
             }
-
+//
         }
 
     }
