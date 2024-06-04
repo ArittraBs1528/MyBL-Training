@@ -53,26 +53,26 @@ class rcvAdapter(val arrayList: ArrayList<Balance>) : RecyclerView.Adapter<rcvAd
         holder.smsAmount.text = userInfo.sms.toString()
 
         //valid till
-        holder.validBalance.text = Helpers.makeValidateString("Valid till 25 Jun, 2024")
+        holder.validBalance.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024")
 
         //handle basic details section
         val internetAmountinGB = (userInfo.internet / 1024.0)
 
         //handle balance section
-        holder.crntBalance.text = Helpers.formationHandle(userInfo.current_balance)
+        holder.crntBalance.text = Helpers.formatCurrencyBalance(userInfo.current_balance)
 
 
         //handle internet section
-        Helpers.handleInternet(holder, internetAmountinGB)
+        Helpers.configureInternetDisplay(holder, internetAmountinGB)
 
         //handle Button
-        Helpers.handleButtons(holder, userInfo)
+        Helpers.configureLoanButtons(holder, userInfo)
 
 
         //handle minute section
         var minuteAmount = userInfo.min.toString()
-        holder.minAmount.text = Helpers.handleMinutes(minuteAmount)[0]
-        holder.minSec.text = "Min " + Helpers.handleMinutes(minuteAmount)[1]
+        holder.minAmount.text = Helpers.splitMinutesAndSeconds(minuteAmount)[0]
+        holder.minSec.text = "Min " + Helpers.splitMinutesAndSeconds(minuteAmount)[1]
 
 
         //handle sms section

@@ -1,14 +1,6 @@
 package com.example.rechargemybl.app.view
-
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
@@ -84,12 +76,9 @@ class MainActivity : AppCompatActivity() {
             dividerItemDecoration.setDrawable(it)
         }
 
-
         binding.rcv1.addItemDecoration(dividerItemDecoration)
 
-
     }
-
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
     private fun displayUserReachargeSection(user: Balance) {
@@ -100,8 +89,8 @@ class MainActivity : AppCompatActivity() {
 
         //handle basic details section
         val internetAmountinGB = (user.internet / 1024.0)
-        binding.validText.text = Helpers.makeValidateString(initialText)
-        binding.balance.text = Helpers.formationHandle(user.current_balance)
+        binding.validText.text = Helpers.highlightBoldSubstring(initialText)
+        binding.balance.text = Helpers.formatCurrencyBalance(user.current_balance)
 
 
         //handle recharge button section
@@ -110,19 +99,19 @@ class MainActivity : AppCompatActivity() {
 
 
         //handle loan button section
-        Helpers.handleButtons(binding,user)
+        Helpers.configureLoanButtons(binding,user)
 
 
 
         //handle internet section
-        Helpers.handleInternet(binding, internetAmountinGB)
+        Helpers.configureInternetDisplay(binding, internetAmountinGB)
 
 
 
         //handle minute section
         var minuteAmount = user.min.toString()
-        binding.minuteAmount.text = Helpers.handleMinutes(minuteAmount)[0]
-        binding.minSec.text = "Min " + Helpers.handleMinutes(minuteAmount)[1]
+        binding.minuteAmount.text = Helpers.splitMinutesAndSeconds(minuteAmount)[0]
+        binding.minSec.text = "Min " + Helpers.splitMinutesAndSeconds(minuteAmount)[1]
 
 
         //handle sms section
@@ -130,7 +119,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
     private fun setStatusBarColor(@ColorInt color: Int) {
         val window: Window = window

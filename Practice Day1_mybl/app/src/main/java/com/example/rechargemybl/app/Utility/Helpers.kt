@@ -17,11 +17,11 @@ class Helpers {
     companion object {
 
 
-        fun handleMinutes(minSec: String): List<String> {
+        fun splitMinutesAndSeconds(minSec: String): List<String> {
             return minSec.split(".")
         }
 
-        fun makeValidateString(initialText: String): SpannableString {
+        fun highlightBoldSubstring(initialText: String): SpannableString {
             return SpannableString(initialText).apply {
                 setSpan(
                     StyleSpan(Typeface.BOLD),
@@ -34,7 +34,7 @@ class Helpers {
 
 
         @SuppressLint("DefaultLocale")
-        fun formationHandle(initialBalance: String): SpannableString {
+        fun formatCurrencyBalance(initialBalance: String): SpannableString {
 
             val convertedBalance = initialBalance.toDouble()
             val fomrattedBalance: String
@@ -57,7 +57,7 @@ class Helpers {
 
 
         @SuppressLint("DefaultLocale")
-        fun handleInternet(binding: ActivityMainBinding, internetAmount: Double) {
+        fun configureInternetDisplay(binding: ActivityMainBinding, internetAmount: Double) {
             if (internetAmount == 0.00) {
                 binding.balanceNull.visibility = View.VISIBLE
             } else if (internetAmount < 1.00) {
@@ -73,7 +73,7 @@ class Helpers {
 
 
         @SuppressLint("DefaultLocale")
-        fun handleInternet(holder: rcvAdapter.rcvHolder, internetAmount: Double) {
+        fun configureInternetDisplay(holder: rcvAdapter.rcvHolder, internetAmount: Double) {
             if (internetAmount == 0.00) {
                 holder.balanceNull.visibility = View.VISIBLE
             } else if (internetAmount < 1.00) {
@@ -88,7 +88,7 @@ class Helpers {
         }
 
 
-        fun handleButtons(binding: ActivityMainBinding, user: Balance) {
+        fun configureLoanButtons(binding: ActivityMainBinding, user: Balance) {
             if (user.Loan_due != null) binding.dueLoanAmount.text =
                 "Tk. " + user.Loan_due.toString()
 //            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
@@ -103,7 +103,7 @@ class Helpers {
 
         }
 
-        fun handleButtons(binding: rcvAdapter.rcvHolder, user: Balance) {
+        fun configureLoanButtons(binding: rcvAdapter.rcvHolder, user: Balance) {
             if (user.Loan_due != null) binding.due_Loan_amount.text =
                 "Tk. " + user.Loan_due.toString()
 //            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
