@@ -523,6 +523,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv1"
+            android:layout_marginHorizontal="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
