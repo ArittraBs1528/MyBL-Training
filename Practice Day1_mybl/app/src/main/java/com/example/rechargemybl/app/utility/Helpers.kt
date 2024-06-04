@@ -23,7 +23,6 @@ class Helpers {
                 val (minutes, seconds) = minSec.split(".")
                 return Pair(minutes, seconds)
             }
-
             return Pair("0", "0")
         }
 

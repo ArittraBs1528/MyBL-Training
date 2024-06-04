@@ -1,4 +1,5 @@
 package com.example.rechargemybl.app.view
+
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Window
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var user2: UserDao
     private lateinit var user3: UserDao
 
-    private val peopleAdapter = UserAdapter()
+    private val userAdapter = UserAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +44,12 @@ class MainActivity : AppCompatActivity() {
         }
         setStatusBarColor(resources.getColor(R.color.orange))
 
+        val userInfo = createUsers()
+        displayUserReachargeSection(userInfo[1]);
+
         preparePeopleListView()
 
 
-        val userInfo = createUsers()
-
-        displayUserReachargeSection(userInfo[1]);
 //
 //        binding.rcv1.layoutManager =
 //            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -70,11 +71,11 @@ class MainActivity : AppCompatActivity() {
         val userInfo = createUsers()
 
 
-        peopleAdapter.submitData(userInfo)
+        userAdapter.submitData(userInfo)
 
         binding.peopleList.layoutManager = layoutManager
         binding.peopleList.addItemDecoration(itemDecoration)
-        binding.peopleList.adapter = peopleAdapter
+        binding.peopleList.adapter = userAdapter
     }
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
@@ -96,14 +97,11 @@ class MainActivity : AppCompatActivity() {
 
 
         //handle loan button section
-        Helpers.configureLoanButtons(binding,user)
-
+        Helpers.configureLoanButtons(binding, user)
 
 
         //handle internet section
         Helpers.configureInternetDisplay(binding, internetAmountinGB)
-
-
 
 
         //handle minute section
@@ -113,7 +111,6 @@ class MainActivity : AppCompatActivity() {
         val seconds = pair.second
         binding.minuteAmount.text = minutes
         binding.minSec.text = "Min " + seconds
-
 
 
         //handle sms section
@@ -128,23 +125,26 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = color
     }
 
-    private fun createUsers() : ArrayList<UserDao>{
+    private fun createUsers(): ArrayList<UserDao> {
         val userInfo = ArrayList<UserDao>()
 
-        user1 = UserDao(1,
+        user1 = UserDao(
+            1,
             "1400.0", 40,
             null,
             930.45, 0.00,
             50, null
         )
-        user2 = UserDao(2,
+        user2 = UserDao(
+            2,
             "4.68", null,
             90,
             930.45, 14500.00,
             90, null
         )
 
-        user3 = UserDao(3,
+        user3 = UserDao(
+            3,
             "1157.658", null,
             null,
             930.45, 500.00,
