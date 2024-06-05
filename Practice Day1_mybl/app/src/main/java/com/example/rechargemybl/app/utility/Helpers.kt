@@ -40,13 +40,14 @@ object Helpers {
     fun formatCurrencyBalance(initialBalance: String): SpannableString {
 
         val convertedBalance = initialBalance.toDouble()
-        val fomrattedBalance: String
 
-        if (convertedBalance % 1.0 == 0.0) fomrattedBalance =
-            String.format("%.0f", convertedBalance)
-        else fomrattedBalance = String.format("%.2f", convertedBalance)
 
-        val finalString = "৳ $fomrattedBalance"
+        val formattedBalance = when {
+            convertedBalance % 1.0 == 0.0 -> String.format("%.0f", convertedBalance)
+            else -> String.format("%.2f", convertedBalance)
+        }
+
+        val finalString = "৳ $formattedBalance"
 
         return SpannableString(finalString).apply {
             setSpan(

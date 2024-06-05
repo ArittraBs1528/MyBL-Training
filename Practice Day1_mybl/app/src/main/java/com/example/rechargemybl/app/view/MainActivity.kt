@@ -181,4 +181,5 @@ class MainActivity : AppCompatActivity() {
             viewBinding.internetUnit.text = "GB"
         }
     }
+
 }
