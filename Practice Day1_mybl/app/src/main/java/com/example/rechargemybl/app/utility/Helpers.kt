@@ -13,115 +13,48 @@ import com.example.rechargemybl.app.adapter.rcvAdapter
 import com.example.rechargemybl.app.model.UserDao
 import com.example.rechargemybl.databinding.ActivityMainBinding
 
-class Helpers {
-    companion object {
+object Helpers {
 
+    fun splitMinutesAndSeconds(minSec: String): Pair<String, String> {
 
-        fun splitMinutesAndSeconds(minSec: String): Pair<String, String> {
-
-            if(minSec.contains(".")){
-                val (minutes, seconds) = minSec.split(".")
-                return Pair(minutes, seconds)
-            }
-            return Pair("0", "0")
+        if (minSec.contains(".")) {
+            val (minutes, seconds) = minSec.split(".")
+            return Pair(minutes, seconds)
         }
+        return Pair("0", "0")
+    }
 
-        fun highlightBoldSubstring(initialText: String): SpannableString {
-            return SpannableString(initialText).apply {
-                setSpan(
-                    StyleSpan(Typeface.BOLD),
-                    11,
-                    initialText.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
+    fun highlightBoldSubstring(initialText: String): SpannableString {
+        return SpannableString(initialText).apply {
+            setSpan(
+                StyleSpan(Typeface.BOLD),
+                11,
+                initialText.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
+    }
 
 
-        @SuppressLint("DefaultLocale")
-        fun formatCurrencyBalance(initialBalance: String): SpannableString {
+    @SuppressLint("DefaultLocale")
+    fun formatCurrencyBalance(initialBalance: String): SpannableString {
 
-            val convertedBalance = initialBalance.toDouble()
-            val fomrattedBalance: String
+        val convertedBalance = initialBalance.toDouble()
+        val fomrattedBalance: String
 
-            if (convertedBalance % 1.0 == 0.0) fomrattedBalance =
-                String.format("%.0f", convertedBalance)
-            else fomrattedBalance = String.format("%.2f", convertedBalance)
+        if (convertedBalance % 1.0 == 0.0) fomrattedBalance =
+            String.format("%.0f", convertedBalance)
+        else fomrattedBalance = String.format("%.2f", convertedBalance)
 
-            val finalString = "৳ $fomrattedBalance"
+        val finalString = "৳ $fomrattedBalance"
 
-            return SpannableString(finalString).apply {
-                setSpan(
-                    ForegroundColorSpan(Color.BLACK),
-                    2,
-                    finalString.length,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
+        return SpannableString(finalString).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                2,
+                finalString.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
-
-
-        @SuppressLint("DefaultLocale")
-        fun configureInternetDisplay(binding: ActivityMainBinding, internetAmount: Double) {
-            if (internetAmount == 0.00) {
-                binding.balanceNull.visibility = View.VISIBLE
-            } else if (internetAmount < 1.00) {
-                binding.internetAmount.text =
-                    (String.format("%.1f", internetAmount).toDouble() * 1000.00).toString()
-                binding.internetUnit.text = "MB"
-            } else {
-                binding.internetAmount.text = String.format("%.2f", internetAmount)
-                binding.internetUnit.text = "GB"
-            }
-
-        }
-
-
-        @SuppressLint("DefaultLocale")
-        fun configureInternetDisplay(holder: rcvAdapter.rcvHolder, internetAmount: Double) {
-            if (internetAmount == 0.00) {
-                holder.balanceNull.visibility = View.VISIBLE
-            } else if (internetAmount < 1.00) {
-                holder.internetAmount.text =
-                    (String.format("%.1f", internetAmount).toDouble() * 1000.00).toString()
-                holder.internetUnit.text = "MB"
-            } else {
-                holder.internetAmount.text = String.format("%.2f", internetAmount)
-                holder.internetUnit.text = "GB"
-            }
-
-        }
-
-
-        fun configureLoanButtons(binding: ActivityMainBinding, user: UserDao) {
-            if (user.Loan_due != null) binding.dueLoanAmount.text =
-                "Tk. " + user.Loan_due.toString()
-//            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
-            else if (user.can_take_loan != null) {
-                binding.loanbtn.visibility = View.VISIBLE
-                binding.duoLoanbtn.visibility = View.GONE
-                binding.takeLoan.text = "Get ${user.can_take_loan} Tk Loan"
-            } else {
-                binding.loanbtn.visibility = View.GONE
-                binding.duoLoanbtn.visibility = View.GONE
-            }
-
-        }
-
-        fun configureLoanButtons(binding: rcvAdapter.rcvHolder, user: UserDao) {
-            if (user.Loan_due != null) binding.due_Loan_amount.text =
-                "Tk. " + user.Loan_due.toString()
-//            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
-            else if (user.can_take_loan != null) {
-                binding.loanbtn.visibility = View.VISIBLE
-                binding.loanDuo.visibility = View.GONE
-                binding.takeLoan.text = "Get ${user.can_take_loan} Tk Loan"
-            } else {
-                binding.loanbtn.visibility = View.GONE
-                binding.loanDuo.visibility = View.GONE
-            }
-//
-        }
-
     }
 }

@@ -63,10 +63,10 @@ class rcvAdapter(val arrayList: ArrayList<UserDao>) : RecyclerView.Adapter<rcvAd
 
 
         //handle internet section
-        Helpers.configureInternetDisplay(holder, internetAmountinGB)
+//        Helpers.configureInternetDisplay(holder, internetAmountinGB)
 
         //handle Button
-        Helpers.configureLoanButtons(holder, userInfo)
+//        Helpers.configureLoanButtons(holder, userInfo)
 
 
         //handle minute section

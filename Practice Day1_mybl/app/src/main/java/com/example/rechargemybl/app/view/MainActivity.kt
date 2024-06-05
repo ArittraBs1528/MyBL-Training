@@ -2,6 +2,7 @@ package com.example.rechargemybl.app.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
@@ -45,9 +46,9 @@ class MainActivity : AppCompatActivity() {
         setStatusBarColor(resources.getColor(R.color.orange))
 
         val userInfo = createUsers()
-        displayUserReachargeSection(userInfo[1]);
+        displayUserReachargeSection(userInfo[0]);
 
-        preparePeopleListView()
+        prepareUserListView()
 
 
 //
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun preparePeopleListView() {
+    private fun prepareUserListView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
 
@@ -97,11 +98,11 @@ class MainActivity : AppCompatActivity() {
 
 
         //handle loan button section
-        Helpers.configureLoanButtons(binding, user)
+        configureLoanButtons(binding, user)
 
 
         //handle internet section
-        Helpers.configureInternetDisplay(binding, internetAmountinGB)
+        configureInternetDisplay(binding, internetAmountinGB)
 
 
         //handle minute section
@@ -156,5 +157,36 @@ class MainActivity : AppCompatActivity() {
         userInfo.add(user3)
 
         return userInfo
+    }
+
+    private fun configureLoanButtons(viewBinding: ActivityMainBinding, user: UserDao?) {
+        if (user?.Loan_due != null) viewBinding.dueLoanAmount.text =
+            "Tk. " + user.Loan_due.toString()
+//            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
+        else if (user?.can_take_loan != null) {
+            viewBinding.loanbtn.visibility = View.VISIBLE
+            viewBinding.duoLoanbtn.visibility = View.GONE
+            viewBinding.takeLoan.text = "Get ${user.can_take_loan} Tk Loan"
+        } else {
+            viewBinding.loanbtn.visibility = View.GONE
+            viewBinding.duoLoanbtn.visibility = View.GONE
+        }
+
+    }
+
+    private fun configureInternetDisplay(
+        viewBinding: ActivityMainBinding,
+        userInternetInGB: Double
+    ) {
+        if (userInternetInGB == 0.00) {
+            viewBinding.balanceNull.visibility = View.VISIBLE
+        } else if (userInternetInGB < 1.00) {
+            viewBinding.internetAmount.text =
+                (String.format("%.1f", userInternetInGB).toDouble() * 1000.00).toString()
+            viewBinding.internetUnit.text = "MB"
+        } else {
+            viewBinding.internetAmount.text = String.format("%.2f", userInternetInGB)
+            viewBinding.internetUnit.text = "GB"
+        }
     }
 }
