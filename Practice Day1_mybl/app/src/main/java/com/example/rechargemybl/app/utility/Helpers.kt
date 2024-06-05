@@ -60,10 +60,11 @@ object Helpers {
     }
 
     val TYPE_BALANCE = "TYPE_BALANCE"
-    val TYPE_USER = "TYPE_USER"
+    val TYPE_BILLS = "TYPE_BILLS"
+
 
     val typeMap = HashMap<String, Int>().apply {
         put(TYPE_BALANCE, 0)
-        put(TYPE_USER, 1)
+        put(TYPE_BILLS, 1)
     }
 }

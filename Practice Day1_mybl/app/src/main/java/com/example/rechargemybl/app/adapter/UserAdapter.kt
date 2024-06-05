@@ -1,5 +1,6 @@
 package com.example.rechargemybl.app.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
-import com.example.rechargemybl.app.Utility.Helpers.TYPE_USER
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_BILLS
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
+import com.example.rechargemybl.app.model.BillDao
 import com.example.rechargemybl.app.model.RvData
 import com.example.rechargemybl.app.model.UserDao
+import com.example.rechargemybl.databinding.BillsItemsViewBinding
 import com.example.rechargemybl.databinding.ItemViewBinding
 
 
@@ -30,14 +33,16 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
+        Log.wtf("aritra", "onCreateViewHolder: $viewType")
+
         val key = typeMap.filterValues { it == viewType }.keys.first()
 
         when (key) {
             TYPE_BALANCE -> {
-                UserViewHolder.create(parent)
+                return UserViewHolder.create(parent)
             }
-            TYPE_USER -> {
-                UserViewHolder.create(parent)
+            TYPE_BILLS -> {
+               return  BillViewHolder.create(parent)
             }
         }
 
@@ -45,9 +50,12 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        Log.wtf("aritra", "onBindViewHolder: $position")
+
         when (holder) {
             is UserViewHolder -> holder.bind(dataSet.getOrNull(position)?.userDao)
-
+            is BillViewHolder -> holder.bind(dataSet.getOrNull(position)?.billDao)
         }
     }
 
@@ -161,4 +169,28 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     }
+
+
+
+    class BillViewHolder(
+        private val viewBinding: BillsItemsViewBinding
+    ) : RecyclerView.ViewHolder(viewBinding.root) {
+
+        companion object {
+            fun create(parent: ViewGroup): BillViewHolder {
+                val inflater = LayoutInflater.from(parent.context)
+                val view = BillsItemsViewBinding.inflate(inflater, parent, false)
+                return BillViewHolder(view)
+            }
+        }
+
+
+        fun bind(bills: BillDao?) {
+
+            if (bills != null) {
+                viewBinding.cartInImage.setImageResource(bills.image)
+            }
+        }
+    }
+
 }

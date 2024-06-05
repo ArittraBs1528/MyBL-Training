@@ -45,6 +45,7 @@ class rcvAdapter(val arrayList: ArrayList<UserDao>) : RecyclerView.Adapter<rcvAd
 
     override fun onBindViewHolder(holder: rcvHolder, position: Int) {
 
+
         val userInfo = arrayList[position]
 
         holder.internetUnit.text = "MB"

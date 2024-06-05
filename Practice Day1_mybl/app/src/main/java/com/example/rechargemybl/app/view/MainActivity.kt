@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.adapter.UserAdapter
+import com.example.rechargemybl.app.model.BillDao
 import com.example.rechargemybl.app.model.RvData
 
 import com.example.rechargemybl.app.model.UserDao
@@ -194,7 +195,7 @@ class MainActivity : AppCompatActivity() {
                     null,
                     930.45, 0.00,
                     50, null
-                )
+                ),null
             )
         )
         RvInfo.add(
@@ -205,9 +206,10 @@ class MainActivity : AppCompatActivity() {
                     null,
                     930.45, 500.00,
                     90, null
-                )
+                ),null
             )
         )
+
 
         RvInfo.add(
             RvData(3,
@@ -217,9 +219,20 @@ class MainActivity : AppCompatActivity() {
                     90,
                     930.45, 14500.00,
                     90, null
-                )
+                ),null
             )
         )
+        RvInfo.add(
+            RvData(3,
+                "TYPE_BILLS",  null, BillDao(R.drawable.img1)
+            )
+        )
+        RvInfo.add(
+            RvData(3,
+                "TYPE_BILLS",  null,BillDao(R.drawable.img3)
+            )
+        )
+
 
         return RvInfo
     }
