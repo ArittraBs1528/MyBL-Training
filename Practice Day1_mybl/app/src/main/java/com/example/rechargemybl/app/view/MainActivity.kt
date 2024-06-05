@@ -24,9 +24,6 @@ import com.example.rechargemybl.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var user1: UserDao
-    private lateinit var user2: UserDao
-    private lateinit var user3: UserDao
 
     private val userAdapter = UserAdapter()
 
@@ -65,6 +62,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
     private fun prepareUserListView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
@@ -78,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         binding.peopleList.addItemDecoration(itemDecoration)
         binding.peopleList.adapter = userAdapter
     }
+
+
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
     private fun displayUserReachargeSection(user: UserDao) {
@@ -128,33 +129,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun createUsers(): ArrayList<UserDao> {
         val userInfo = ArrayList<UserDao>()
-
-        user1 = UserDao(
+        userInfo.add(UserDao(
             1,
             "1400.0", 40,
             null,
             930.45, 0.00,
             50, null
-        )
-        user2 = UserDao(
+        ))
+        userInfo.add(UserDao(
             2,
             "4.68", null,
             90,
             930.45, 14500.00,
             90, null
-        )
-
-        user3 = UserDao(
+        ))
+        userInfo.add(UserDao(
             3,
             "1157.658", null,
             null,
             930.45, 500.00,
             90, null
-        )
-
-        userInfo.add(user1)
-        userInfo.add(user2)
-        userInfo.add(user3)
+        ))
 
         return userInfo
     }
@@ -174,10 +169,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun configureInternetDisplay(
-        viewBinding: ActivityMainBinding,
-        userInternetInGB: Double
-    ) {
+    private fun configureInternetDisplay(viewBinding: ActivityMainBinding, userInternetInGB: Double) {
         if (userInternetInGB == 0.00) {
             viewBinding.balanceNull.visibility = View.VISIBLE
         } else if (userInternetInGB < 1.00) {
