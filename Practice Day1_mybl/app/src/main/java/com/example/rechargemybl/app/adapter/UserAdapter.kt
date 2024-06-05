@@ -57,9 +57,8 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
 
-    class UserViewHolder(
-        private val viewBinding: ItemViewBinding
-    ) : RecyclerView.ViewHolder(viewBinding.root) {
+    class UserViewHolder(private val viewBinding: ItemViewBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
 
         companion object {
             fun create(parent: ViewGroup): UserViewHolder {
@@ -124,7 +123,10 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
 
-        private fun configureInternetDisplay(viewBinding: ItemViewBinding, userInternetInGB: Double) {
+        private fun configureInternetDisplay(
+            viewBinding: ItemViewBinding,
+            userInternetInGB: Double
+        ) {
             if (userInternetInGB == 0.00) {
                 viewBinding.balanceNull.visibility = View.VISIBLE
             } else if (userInternetInGB < 1.00) {
