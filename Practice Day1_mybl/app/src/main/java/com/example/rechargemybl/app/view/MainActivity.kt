@@ -78,8 +78,6 @@ class MainActivity : AppCompatActivity() {
         binding.peopleList.adapter = userAdapter
     }
 
-
-
     @SuppressLint("SetTextI18n", "DefaultLocale")
     private fun displayUserReachargeSection(user: UserDao) {
 
@@ -108,11 +106,11 @@ class MainActivity : AppCompatActivity() {
 
         //handle minute section
         var minuteAmount = user.min.toString()
-        val pair = Helpers.splitMinutesAndSeconds(minuteAmount);
-        val minutes = pair.first
-        val seconds = pair.second
+        val (minutes,seconds)  = Helpers.splitMinutesAndSeconds(minuteAmount);
         binding.minuteAmount.text = minutes
-        binding.minSec.text = "Min " + seconds
+        binding.minSec.text = "Min $seconds"
+
+
 
 
         //handle sms section
@@ -181,5 +179,4 @@ class MainActivity : AppCompatActivity() {
             viewBinding.internetUnit.text = "GB"
         }
     }
-
 }
