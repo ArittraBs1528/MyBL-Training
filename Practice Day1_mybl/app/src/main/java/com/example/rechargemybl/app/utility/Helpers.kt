@@ -58,4 +58,12 @@ object Helpers {
             )
         }
     }
+
+    val TYPE_BALANCE = "TYPE_BALANCE"
+    val TYPE_USER = "TYPE_USER"
+
+    val typeMap = HashMap<String, Int>().apply {
+        put(TYPE_BALANCE, 0)
+        put(TYPE_USER, 1)
+    }
 }

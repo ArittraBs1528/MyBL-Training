@@ -7,30 +7,51 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_USER
+import com.example.rechargemybl.app.Utility.Helpers.typeMap
+import com.example.rechargemybl.app.model.RvData
 import com.example.rechargemybl.app.model.UserDao
 import com.example.rechargemybl.databinding.ItemViewBinding
 
 
 class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val dataSet = ArrayList<UserDao>()
+    private val dataSet = ArrayList<RvData>()
 
     override fun getItemCount(): Int {
         return dataSet.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        val type = dataSet[position].type
+        return typeMap[type]?: 0
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        val key = typeMap.filterValues { it == viewType }.keys.first()
+
+        when (key) {
+            TYPE_BALANCE -> {
+                UserViewHolder.create(parent)
+            }
+            TYPE_USER -> {
+                UserViewHolder.create(parent)
+            }
+        }
+
         return UserViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is UserViewHolder -> holder.bind(dataSet.getOrNull(position))
+            is UserViewHolder -> holder.bind(dataSet.getOrNull(position)?.userDao)
+
         }
     }
 
-    fun submitData(people: List<UserDao>) {
+    fun submitData(people: List<RvData>) {
         val oldData = ArrayList(dataSet)  //creates a copy only
         dataSet.clear()
         dataSet.addAll(people)

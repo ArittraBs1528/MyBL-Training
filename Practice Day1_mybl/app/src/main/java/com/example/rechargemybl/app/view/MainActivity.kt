@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.adapter.UserAdapter
+import com.example.rechargemybl.app.model.RvData
 
 import com.example.rechargemybl.app.model.UserDao
 
@@ -63,15 +64,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun prepareUserListView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
 
         val userInfo = createUsers()
 
+        val userInfoPacked = createDemoUser()
 
-        userAdapter.submitData(userInfo)
+        userAdapter.submitData(userInfoPacked)
 
         binding.peopleList.layoutManager = layoutManager
         binding.peopleList.addItemDecoration(itemDecoration)
@@ -106,11 +107,9 @@ class MainActivity : AppCompatActivity() {
 
         //handle minute section
         var minuteAmount = user.min.toString()
-        val (minutes,seconds)  = Helpers.splitMinutesAndSeconds(minuteAmount);
+        val (minutes, seconds) = Helpers.splitMinutesAndSeconds(minuteAmount);
         binding.minuteAmount.text = minutes
         binding.minSec.text = "Min $seconds"
-
-
 
 
         //handle sms section
@@ -127,29 +126,102 @@ class MainActivity : AppCompatActivity() {
 
     private fun createUsers(): ArrayList<UserDao> {
         val userInfo = ArrayList<UserDao>()
-        userInfo.add(UserDao(
-            1,
-            "1400.0", 40,
-            null,
-            930.45, 0.00,
-            50, null
-        ))
-        userInfo.add(UserDao(
-            2,
-            "4.68", null,
-            90,
-            930.45, 14500.00,
-            90, null
-        ))
-        userInfo.add(UserDao(
-            3,
-            "1157.658", null,
-            null,
-            930.45, 500.00,
-            90, null
-        ))
+        userInfo.add(
+            UserDao(
+                1,
+                "1400.0", 40,
+                null,
+                930.45, 0.00,
+                50, null
+            )
+        )
+        userInfo.add(
+            UserDao(
+                2,
+                "4.68", null,
+                90,
+                930.45, 14500.00,
+                90, null
+            )
+        )
+        userInfo.add(
+            UserDao(
+                3,
+                "1157.658", null,
+                null,
+                930.45, 500.00,
+                90, null
+            )
+        )
+        userInfo.add(
+            UserDao(
+                3,
+                "1157.658", null,
+                null,
+                930.45, 500.00,
+                90, null
+            )
+        )
+        userInfo.add(
+            UserDao(
+                3,
+                "1157.658", null,
+                null,
+                930.45, 500.00,
+                90, null
+            )
+        )
+        userInfo.add(
+            UserDao(
+                3,
+                "1157.658", null,
+                null,
+                930.45, 500.00,
+                90, null
+            )
+        )
 
         return userInfo
+    }
+
+    private fun createDemoUser(): ArrayList<RvData> {
+        val RvInfo = ArrayList<RvData>()
+        RvInfo.add(
+            RvData(1,
+                "TYPE_USER",   UserDao(
+                    1,
+                    "1400.0", 40,
+                    null,
+                    930.45, 0.00,
+                    50, null
+                )
+            )
+        )
+        RvInfo.add(
+            RvData(2,
+                "TYPE_USER", UserDao(
+                    3,
+                    "1157.658", null,
+                    null,
+                    930.45, 500.00,
+                    90, null
+                )
+            )
+        )
+
+        RvInfo.add(
+            RvData(3,
+                "TYPE_USER",  UserDao(
+                    2,
+                    "4.68", null,
+                    90,
+                    930.45, 14500.00,
+                    90, null
+                )
+            )
+        )
+
+        return RvInfo
     }
 
     private fun configureLoanButtons(viewBinding: ActivityMainBinding, user: UserDao?) {
@@ -167,7 +239,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun configureInternetDisplay(viewBinding: ActivityMainBinding, userInternetInGB: Double) {
+    private fun configureInternetDisplay(
+        viewBinding: ActivityMainBinding,
+        userInternetInGB: Double
+    ) {
         if (userInternetInGB == 0.00) {
             viewBinding.balanceNull.visibility = View.VISIBLE
         } else if (userInternetInGB < 1.00) {
