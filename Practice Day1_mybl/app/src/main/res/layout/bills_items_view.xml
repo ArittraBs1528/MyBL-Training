@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
-    android:layout_marginTop="10dp">
+    android:background="@color/white"
+    android:padding="6dp">
 
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="24dp"
         android:layout_height="25dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/img_background"
         android:padding="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         app:srcCompat="@drawable/baseline_home_24" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:text="বিলস"
-
         android:textSize="16sp"
-
-
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_goneMarginLeft="10dp"
+        app:layout_goneMarginTop="10dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -40,20 +40,19 @@
         android:text="সব দেখুন"
         android:textColor="#151715"
         android:textSize="16sp"
-
-
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/arrow"
         app:layout_constraintTop_toTopOf="@+id/arrow"
+
         app:layout_goneMarginEnd="10dp" />
 
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="24dp"
-        android:layout_height="25dp"
-        android:layout_marginRight="2dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="2dp"
         android:scaleType="centerCrop"
-
         android:src="@drawable/baseline_keyboard_arrow_right_24"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,29 +63,32 @@
         android:id="@+id/cartInImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
-        android:layout_marginTop="1dp"
-        android:scaleType="centerInside"
-        app:layout_constraintDimensionRatio="H,16:9"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/imageborder"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/soujonno"
+        app:layout_constraintDimensionRatio="W,18:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier2"
-        app:layout_constraintBottom_toTopOf="@+id/soujonno"
         app:shapeAppearanceOverlay="@style/circleImageView"
-        app:srcCompat="@drawable/img4" />
+        app:srcCompat="@drawable/img4"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
 
     <TextView
         android:id="@+id/paystation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_goneMarginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
         android:text=" PayStation"
-        android:textSize="10sp"
+        android:textSize="11sp"
+
         android:textStyle="bold"
-        android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cartInImage" />
+        app:layout_constraintTop_toBottomOf="@+id/cartInImage"
+        app:layout_goneMarginTop="10dp" />
 
     <TextView
         android:id="@+id/soujonno"
@@ -94,7 +96,7 @@
         android:layout_height="wrap_content"
         android:text="সৌজন্যেঃ"
 
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toStartOf="@+id/paystation"
         app:layout_constraintTop_toBottomOf="@+id/cartInImage"
         app:layout_constraintTop_toTopOf="@+id/paystation" />

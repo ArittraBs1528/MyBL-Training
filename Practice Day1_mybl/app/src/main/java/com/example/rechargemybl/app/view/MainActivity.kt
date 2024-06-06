@@ -1,8 +1,6 @@
 package com.example.rechargemybl.app.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -13,11 +11,11 @@ import androidx.core.content.ContextCompat
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
-import com.example.rechargemybl.app.adapter.UserAdapter
+import com.example.rechargemybl.app.adapter.UserAdapter.ItemViewMargin
+import com.example.rechargemybl.app.adapter.UserAdapter.UserAdapter
 import com.example.rechargemybl.app.model.BillDao
 import com.example.rechargemybl.app.model.RvData
 
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
         setStatusBarColor(ContextCompat.getColor(this, R.color.orange))
 
-        displayUserReachargeSection(
+        displayUserRechargeSection(
             UserDao(
                 2,
                 "4.68", null,
@@ -63,19 +61,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun prepareUserListView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation) //TODO
+//        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation) //TODO
 
         val userInfoPacked = createDemoUser()
 
         userAdapter.submitData(userInfoPacked)
 
         binding.peopleList.layoutManager = layoutManager
-        binding.peopleList.addItemDecoration(itemDecoration)
+//        binding.peopleList.addItemDecoration(itemDecoration)
+        binding.peopleList.addItemDecoration(ItemViewMargin())
         binding.peopleList.adapter = userAdapter
     }
 
 
-    private fun displayUserReachargeSection(user: UserDao) {
+    private fun displayUserRechargeSection(user: UserDao) {
 
         //handle valid text
         val initialText = "Valid till 25 Jun, 2024"
