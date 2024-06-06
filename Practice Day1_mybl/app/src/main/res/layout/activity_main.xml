@@ -514,6 +514,7 @@
     </androidx.cardview.widget.CardView>
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/peopleList"
         android:layout_width="match_parent"
