@@ -11,4 +11,12 @@
     <string name="paystation"> সৌজন্যেঃ</string>
     <string name="seeAll">সব দেখুন</string>
     <string name="bills">বিলস</string>
+
+    <string name="currentBalance">Current Balance</string>
+    <string name="recharge">Recharge</string>
+    <string name="loan">Loan Due</string>
+    <string name="SMS">SMS</string>
+
+
+
 </resources>
