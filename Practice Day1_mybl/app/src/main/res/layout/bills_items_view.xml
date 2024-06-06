@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:padding="6dp">
 
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="24dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
@@ -20,11 +21,11 @@
         app:srcCompat="@drawable/baseline_home_24" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/bills"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="বিলস"
+        tools:text="বিলস"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -34,10 +35,10 @@
         app:layout_goneMarginTop="10dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/seeAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="সব দেখুন"
+        tools:text="সব দেখুন"
         android:textColor="#151715"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -59,22 +60,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+  <!--  app:strokeColor="@color/black"-->
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/cartInImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
-        android:background="@drawable/imageborder"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
         app:layout_constraintBottom_toTopOf="@+id/soujonno"
         app:layout_constraintDimensionRatio="W,18:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier2"
         app:shapeAppearanceOverlay="@style/circleImageView"
-        app:srcCompat="@drawable/img4"
         app:strokeColor="@color/black"
-        app:strokeWidth="1dp" />
+        android:padding="0.6dp"
+        app:strokeWidth="0.7dp" />
 
     <TextView
         android:id="@+id/paystation"
@@ -82,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
-        android:text=" PayStation"
+        tools:text=" PayStation"
         android:textSize="11sp"
 
         android:textStyle="bold"
@@ -94,8 +96,7 @@
         android:id="@+id/soujonno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="সৌজন্যেঃ"
-
+        tools:text="সৌজন্যেঃ"
         android:textSize="11sp"
         app:layout_constraintEnd_toStartOf="@+id/paystation"
         app:layout_constraintTop_toBottomOf="@+id/cartInImage"
@@ -106,6 +107,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="imageView3,textView3,textView4,arrow" />
+        app:constraint_referenced_ids="imageView3,bills,seeAll,arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

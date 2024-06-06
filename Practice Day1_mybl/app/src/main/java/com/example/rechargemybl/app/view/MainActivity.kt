@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val userAdapter = UserAdapter()
+    private val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    private val itemDecoration = ItemViewMargin()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,17 +62,14 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun prepareUserListView() {
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation) //TODO
-
-        val userInfoPacked = createDemoUser()
-
-        userAdapter.submitData(userInfoPacked)
-
         binding.peopleList.layoutManager = layoutManager
-//        binding.peopleList.addItemDecoration(itemDecoration)
-        binding.peopleList.addItemDecoration(ItemViewMargin())
+        binding.peopleList.addItemDecoration(itemDecoration)
         binding.peopleList.adapter = userAdapter
+        updateData(createDemoUser())
+    }
+
+    private fun updateData(list: ArrayList<RvData>) {
+        userAdapter.submitData(list)
     }
 
 
@@ -167,13 +166,14 @@ class MainActivity : AppCompatActivity() {
         RvInfo.add(
             RvData(
                 3,
-                "TYPE_BILLS", null, BillDao(R.drawable.img1)
+                "TYPE_BILLS", null, BillDao(R.drawable.img1,"বিলস","সব দেখুন","সৌজন্যেঃ"," PayStation")
             )
         )
         RvInfo.add(
             RvData(
                 3,
-                "TYPE_BILLS", null, BillDao(R.drawable.img3)
+                "TYPE_BILLS", null,
+                BillDao(R.drawable.img3,"বিলস","সব দেখুন","সৌজন্যেঃ"," PayStation")
             )
         )
 

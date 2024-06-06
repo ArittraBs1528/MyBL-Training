@@ -1,5 +1,9 @@
 package com.example.rechargemybl.app.model
 
 data class BillDao(
-    var image : Int
+    val image : Int?,
+    val bills : String?,
+    val sellAll : String?,
+    val poweredBy : String?,
+    val sponsorName : String?
 )

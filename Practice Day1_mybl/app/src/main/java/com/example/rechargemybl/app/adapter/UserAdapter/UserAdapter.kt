@@ -1,5 +1,6 @@
 package com.example.rechargemybl.app.adapter.UserAdapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -141,9 +142,10 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
 
+
         private fun configureLoanButtons(viewBinding: ItemViewBinding, user: UserDao?) {
             if (user?.Loan_due != null) viewBinding.dueLoanAmount.text =
-                viewBinding.root.context.getString(R.string.dueLoanAmount, user.Loan_due)
+                viewBinding.root.context.getString(R.string.dueLoanAmount, user.Loan_due.toString())
             else if (user?.can_take_loan != null) {
                 viewBinding.loanbtn.visibility = View.VISIBLE
                 viewBinding.duoLoanbtn.visibility = View.GONE
@@ -209,11 +211,18 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
 
-        fun bind(bills: BillDao?) {
+        fun bind(billsView: BillDao?) {
 
-            if (bills != null) {
-                viewBinding.cartInImage.setImageResource(bills.image)
+
+            if (billsView != null) {
+                billsView.image?.let { viewBinding.cartInImage.setImageResource(it) }
+                billsView.sellAll?.let { viewBinding.bills.text = it }
+                billsView.sponsorName?.let { viewBinding.paystation.text = it }
+                billsView.bills?.let { viewBinding.bills.text = it }
+                billsView.poweredBy?.let { viewBinding.soujonno.text = viewBinding.root.context.getString(R.string.soujonno,it) }
+
             }
+
         }
     }
 

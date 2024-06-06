@@ -8,10 +8,7 @@
     <style name="Theme.RechargeMybl" parent="Base.Theme.RechargeMybl" />
 
     <style name="circleImageView" parent="">
-        <item name="cornerFamilyTopLeft">rounded</item>
-        <item name="cornerFamilyTopRight">rounded</item>
-        <item name="cornerFamilyBottomLeft">rounded</item>
-        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8%</item>
     </style>
 
@@ -20,7 +17,7 @@
         <item name="cornerFamilyTopRight">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">30%</item>
         <item name="android:color">#FFFFFF</item>
     </style>
 </resources>
