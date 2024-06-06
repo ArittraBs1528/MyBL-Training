@@ -264,13 +264,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    tools:text="Get 50 Tk Loan"
                     android:textColor="#301F1F"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/energyicon2"
                     app:layout_constraintStart_toEndOf="@+id/energyicon2"
-                    app:layout_constraintTop_toTopOf="@+id/energyicon2" />
+                    app:layout_constraintTop_toTopOf="@+id/energyicon2"
+                    tools:text="Get 50 Tk Loan" />
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -330,14 +330,14 @@
                     android:id="@+id/due_Loan_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="TK. 17"
                     android:textColor="#F44336"
                     android:textSize="13sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/arrowright3"
                     app:layout_constraintHorizontal_bias="0.56"
                     app:layout_constraintStart_toEndOf="@+id/recharge3"
-                    app:layout_constraintTop_toTopOf="@+id/recharge3" />
+                    app:layout_constraintTop_toTopOf="@+id/recharge3"
+                    tools:text="TK. 17" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/arrowright3"
@@ -513,16 +513,23 @@
 
     </androidx.cardview.widget.CardView>
 
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/peopleList"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recharge_Cart" />
+        app:layout_constraintTop_toBottomOf="@+id/recharge_Cart">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/peopleList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
