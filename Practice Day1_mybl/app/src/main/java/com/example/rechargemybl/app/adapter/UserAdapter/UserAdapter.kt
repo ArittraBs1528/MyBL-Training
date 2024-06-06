@@ -1,4 +1,4 @@
-package com.example.rechargemybl.app.adapter
+package com.example.rechargemybl.app.adapter.UserAdapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -143,7 +143,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         private fun configureLoanButtons(viewBinding: ItemViewBinding, user: UserDao?) {
             if (user?.Loan_due != null) viewBinding.dueLoanAmount.text =
-                viewBinding.root.context.getString(R.string.dueLoanAmount, user.Loan_due.toString())
+                viewBinding.root.context.getString(R.string.dueLoanAmount, user.Loan_due)
             else if (user?.can_take_loan != null) {
                 viewBinding.loanbtn.visibility = View.VISIBLE
                 viewBinding.duoLoanbtn.visibility = View.GONE

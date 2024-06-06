@@ -12,7 +12,7 @@
         <item name="cornerFamilyTopRight">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
-        <item name="cornerSize">18%</item>
+        <item name="cornerSize">8%</item>
     </style>
 
     <style name="shapeBackground" parent="">
