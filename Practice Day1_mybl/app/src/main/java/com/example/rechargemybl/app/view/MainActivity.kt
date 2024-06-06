@@ -227,4 +227,7 @@ class MainActivity : AppCompatActivity() {
             viewBinding.internetUnit.text = getString(R.string.internetUnitGB)
         }
     }
+
+
+
 }
