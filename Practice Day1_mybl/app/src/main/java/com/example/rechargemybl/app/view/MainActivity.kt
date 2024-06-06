@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private val userAdapter = UserAdapter()
     private val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     private val itemDecoration = ItemViewMargin()
-    private var count = 0;
+    private var count = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +60,9 @@ class MainActivity : AppCompatActivity() {
 
         prepareUserListView()
         binding.swiperefresh.setOnRefreshListener {
-            binding.swiperefresh.isRefreshing = false
             count++;
+            binding.swiperefresh.isRefreshing = false
+
             if (count % 2 == 0)
                 updateData(createDemoUser2())
             else

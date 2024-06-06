@@ -216,10 +216,11 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             if (billsView != null) {
                 billsView.image?.let { viewBinding.cartInImage.setImageResource(it) }
-                billsView.sellAll?.let { viewBinding.bills.text = it }
+                billsView.sellAll?.let { viewBinding.seeAll.text = it }
                 billsView.sponsorName?.let { viewBinding.paystation.text = it }
                 billsView.bills?.let { viewBinding.bills.text = it }
                 billsView.poweredBy?.let { viewBinding.soujonno.text = viewBinding.root.context.getString(R.string.soujonno,it) }
+
 
             }
 
