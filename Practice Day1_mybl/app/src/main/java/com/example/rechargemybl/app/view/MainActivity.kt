@@ -2,12 +2,14 @@ package com.example.rechargemybl.app.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,6 +24,7 @@ import com.example.rechargemybl.app.model.RvData
 import com.example.rechargemybl.app.model.UserDao
 
 import com.example.rechargemybl.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,26 +45,19 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setStatusBarColor(resources.getColor(R.color.orange))
+        setStatusBarColor(ContextCompat.getColor(this, R.color.orange))
 
-        val userInfo = createUsers()
-        displayUserReachargeSection(userInfo[0]);
+        displayUserReachargeSection(
+            UserDao(
+                2,
+                "4.68", null,
+                90,
+                930.45, 14500.00,
+                90, null
+            )
+        );
 
         prepareUserListView()
-
-
-//
-//        binding.rcv1.layoutManager =
-//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        binding.rcv1.adapter = RcvAdapter(userInfo)
-//
-//        var dividerItemDecoration = DividerItemDecoration(this,RecyclerView.VERTICAL)
-//        ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let {
-//            dividerItemDecoration.setDrawable(it)
-//        }
-//
-//        binding.rcv1.addItemDecoration(dividerItemDecoration)
-
     }
 
 
@@ -78,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         binding.peopleList.adapter = userAdapter
     }
 
-    @SuppressLint("SetTextI18n", "DefaultLocale")
+
     private fun displayUserReachargeSection(user: UserDao) {
 
         //handle valid text
@@ -86,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //handle basic details section
-        val internetAmountinGB = (user.internet / 1024.0)
+        val internetAmountInGB = (user.internet / 1024.0)
         binding.validText.text = Helpers.highlightBoldSubstring(initialText)
         binding.balance.text = Helpers.formatCurrencyBalance(user.current_balance)
 
@@ -101,14 +97,14 @@ class MainActivity : AppCompatActivity() {
 
 
         //handle internet section
-        configureInternetDisplay(binding, internetAmountinGB)
+        configureInternetDisplay(binding, internetAmountInGB)
 
 
         //handle minute section
-        var minuteAmount = user.min.toString()
+        val minuteAmount = user.min.toString()
         val (minutes, seconds) = Helpers.splitMinutesAndSeconds(minuteAmount);
         binding.minuteAmount.text = minutes
-        binding.minSec.text = "Min $seconds"
+        binding.minSec.text = getString(R.string.Minutes,seconds)
 
 
         //handle sms section
@@ -123,70 +119,13 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = color
     }
 
-    private fun createUsers(): ArrayList<UserDao> {
-        val userInfo = ArrayList<UserDao>()
-        userInfo.add(
-            UserDao(
-                1,
-                "1400.0", 40,
-                null,
-                930.45, 0.00,
-                50, null
-            )
-        )
-        userInfo.add(
-            UserDao(
-                2,
-                "4.68", null,
-                90,
-                930.45, 14500.00,
-                90, null
-            )
-        )
-        userInfo.add(
-            UserDao(
-                3,
-                "1157.658", null,
-                null,
-                930.45, 500.00,
-                90, null
-            )
-        )
-        userInfo.add(
-            UserDao(
-                3,
-                "1157.658", null,
-                null,
-                930.45, 500.00,
-                90, null
-            )
-        )
-        userInfo.add(
-            UserDao(
-                3,
-                "1157.658", null,
-                null,
-                930.45, 500.00,
-                90, null
-            )
-        )
-        userInfo.add(
-            UserDao(
-                3,
-                "1157.658", null,
-                null,
-                930.45, 500.00,
-                90, null
-            )
-        )
 
-        return userInfo
-    }
 
     private fun createDemoUser(): ArrayList<RvData> {
         val RvInfo = ArrayList<RvData>()
         RvInfo.add(
-            RvData(1,
+            RvData(
+                1,
                 "TYPE_USER",
                 UserDao(
                     1,
@@ -199,7 +138,8 @@ class MainActivity : AppCompatActivity() {
             )
         )
         RvInfo.add(
-            RvData(2,
+            RvData(
+                2,
                 "TYPE_USER",
                 UserDao(
                     3,
@@ -214,24 +154,27 @@ class MainActivity : AppCompatActivity() {
 
 
         RvInfo.add(
-            RvData(3,
-                "TYPE_USER",  UserDao(
+            RvData(
+                3,
+                "TYPE_USER", UserDao(
                     2,
                     "4.68", null,
                     90,
                     930.45, 14500.00,
                     90, null
-                ),null
+                ), null
             )
         )
         RvInfo.add(
-            RvData(3,
-                "TYPE_BILLS",  null, BillDao(R.drawable.img1)
+            RvData(
+                3,
+                "TYPE_BILLS", null, BillDao(R.drawable.img1)
             )
         )
         RvInfo.add(
-            RvData(3,
-                "TYPE_BILLS",  null,BillDao(R.drawable.img3)
+            RvData(
+                3,
+                "TYPE_BILLS", null, BillDao(R.drawable.img3)
             )
         )
 
@@ -239,15 +182,17 @@ class MainActivity : AppCompatActivity() {
         return RvInfo
     }
 
+
     private fun configureLoanButtons(viewBinding: ActivityMainBinding, user: UserDao?) {
-        if (user?.Loan_due != null) viewBinding.dueLoanAmount.text =
-            "Tk. " + user.Loan_due.toString()
-//            binding.dueLoanAmount.text = getString(R.string.timeFormat, user.Loan_due)
+
+        if (user?.Loan_due != null) viewBinding.dueLoanAmount.text = getString(R.string.dueLoanAmount, user.Loan_due.toString())
+
         else if (user?.can_take_loan != null) {
             viewBinding.loanbtn.visibility = View.VISIBLE
             viewBinding.duoLoanbtn.visibility = View.GONE
-            viewBinding.takeLoan.text = "Get ${user.can_take_loan} Tk Loan"
-        } else {
+            viewBinding.takeLoan.text = getString(R.string.takeLoan, user.can_take_loan.toString())
+        }
+        else {
             viewBinding.loanbtn.visibility = View.GONE
             viewBinding.duoLoanbtn.visibility = View.GONE
         }
@@ -260,13 +205,27 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (userInternetInGB == 0.00) {
             viewBinding.balanceNull.visibility = View.VISIBLE
-        } else if (userInternetInGB < 1.00) {
-            viewBinding.internetAmount.text =
-                (String.format("%.1f", userInternetInGB).toDouble() * 1000.00).toString()
-            viewBinding.internetUnit.text = "MB"
-        } else {
-            viewBinding.internetAmount.text = String.format("%.2f", userInternetInGB)
-            viewBinding.internetUnit.text = "GB"
+        }
+        else if (userInternetInGB < 1.00) {
+
+            val convertedToMB = userInternetInGB*1024.00
+
+            val formattedUsage = when{
+                convertedToMB % 1.0 == 0.0 -> String.format(Locale.getDefault(),"%.0f", convertedToMB)
+                else -> String.format(Locale.getDefault(),"%.2f", convertedToMB)
+            }
+
+            viewBinding.internetAmount.text = getString(R.string.internetAmount, formattedUsage)
+            viewBinding.internetUnit.text = getString(R.string.internetUnitMB)
+
+        }
+        else {
+            val formattedUsage = when{
+                userInternetInGB % 1.0 == 0.0 -> String.format(Locale.getDefault(),"%.0f", userInternetInGB)
+                else -> String.format(Locale.getDefault(),"%.2f", userInternetInGB)
+            }
+            viewBinding.internetAmount.text = getString(R.string.internetAmount, formattedUsage)
+            viewBinding.internetUnit.text = getString(R.string.internetUnitGB)
         }
     }
 }
