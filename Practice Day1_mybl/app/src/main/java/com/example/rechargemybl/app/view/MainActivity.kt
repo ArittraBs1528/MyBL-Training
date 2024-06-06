@@ -67,9 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun prepareUserListView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-
-        val userInfo = createUsers()
+        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation) //TODO
 
         val userInfoPacked = createDemoUser()
 
@@ -84,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     private fun displayUserReachargeSection(user: UserDao) {
 
         //handle valid text
-        val initialText = "Valid till 25 Jun, 2024";
+        val initialText = "Valid till 25 Jun, 2024"
 
 
         //handle basic details section
@@ -189,24 +187,28 @@ class MainActivity : AppCompatActivity() {
         val RvInfo = ArrayList<RvData>()
         RvInfo.add(
             RvData(1,
-                "TYPE_USER",   UserDao(
+                "TYPE_USER",
+                UserDao(
                     1,
                     "1400.0", 40,
                     null,
                     930.45, 0.00,
                     50, null
-                ),null
+                ),
+                null
             )
         )
         RvInfo.add(
             RvData(2,
-                "TYPE_USER", UserDao(
+                "TYPE_USER",
+                UserDao(
                     3,
                     "1157.658", null,
                     null,
                     930.45, 500.00,
                     90, null
-                ),null
+                ),
+                null
             )
         )
 
