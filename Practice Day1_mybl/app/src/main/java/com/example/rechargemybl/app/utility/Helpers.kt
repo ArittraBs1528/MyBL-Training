@@ -59,8 +59,8 @@ object Helpers {
         }
     }
 
-    val TYPE_BALANCE = "TYPE_BALANCE"
-    val TYPE_BILLS = "TYPE_BILLS"
+    const val TYPE_BALANCE = "TYPE_BALANCE"
+    const val TYPE_BILLS = "TYPE_BILLS"
 
 
     val typeMap = HashMap<String, Int>().apply {

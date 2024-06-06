@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">RechargeMybl</string>
     <string name="timeFormat">%1$d minutes ago</string>
+    <string name="dueLoanAmount">Tk. %1$s</string>
+    <string name="takeLoan">Get %1$s Tk Loan</string>
+    <string name="internetAmount">%1$s</string>
+    <string name="internetUnitMB">MB</string>
+    <string name="internetUnitGB">GB</string>
+    <string name="Minutes">Min %1$s</string>
 </resources>
