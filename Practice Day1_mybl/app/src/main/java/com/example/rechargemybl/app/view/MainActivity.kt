@@ -14,9 +14,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
-import com.example.rechargemybl.app.adapter.UserAdapter.ItemViewMargin
+import com.example.rechargemybl.app.adapter.UserAdapter.UserItemViewMargin
 import com.example.rechargemybl.app.adapter.UserAdapter.UserAdapter
 import com.example.rechargemybl.app.model.BillDao
+import com.example.rechargemybl.app.model.PlanOfferDao
 import com.example.rechargemybl.app.model.RvData
 
 import com.example.rechargemybl.app.model.UserDao
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private val userAdapter = UserAdapter()
     private val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    private val itemDecoration = ItemViewMargin()
+    private val itemDecoration = UserItemViewMargin()
     private var count = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,6 +132,31 @@ class MainActivity : AppCompatActivity() {
 
     private fun createDemoUser(): ArrayList<RvData> {
         val RvInfo = ArrayList<RvData>()
+        val Listadd = ArrayList<PlanOfferDao>()
+        Listadd.add(PlanOfferDao("list"))
+        Listadd.add(PlanOfferDao("list2"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3 fd"))
+        Listadd.add(PlanOfferDao("list3 fdfg"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3d gfsf"))
+        Listadd.add(PlanOfferDao("list3 dsfsd fd"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao("list3"))
+
+        RvInfo.add(
+            RvData(
+                3,
+                "TYPE_PLAN_OFFER", null,
+                null, Listadd
+            )
+        )
+
         RvInfo.add(
             RvData(
                 1,
@@ -142,7 +168,7 @@ class MainActivity : AppCompatActivity() {
                     930.45, 0.00,
                     50, null
                 ),
-                null
+                null, null
             )
         )
         RvInfo.add(
@@ -156,7 +182,7 @@ class MainActivity : AppCompatActivity() {
                     930.45, 500.00,
                     90, null
                 ),
-                null
+                null, null
             )
         )
 
@@ -170,7 +196,7 @@ class MainActivity : AppCompatActivity() {
                     90,
                     930.45, 14500.00,
                     90, null
-                ), null
+                ), null, null
             )
         )
         RvInfo.add(
@@ -178,16 +204,20 @@ class MainActivity : AppCompatActivity() {
                 3,
                 "TYPE_BILLS",
                 null,
-                BillDao(R.drawable.img1, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation")
+                BillDao(R.drawable.img1, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation"), null
             )
         )
         RvInfo.add(
             RvData(
                 3,
                 "TYPE_BILLS", null,
-                BillDao(R.drawable.img3, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation")
+                BillDao(R.drawable.img3, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation"), null
             )
         )
+
+
+
+
 
 
         return RvInfo
@@ -261,7 +291,7 @@ class MainActivity : AppCompatActivity() {
                     930.45, 0.00,
                     50, null
                 ),
-                null
+                null, null
             )
         )
         RvInfo.add(
@@ -275,7 +305,7 @@ class MainActivity : AppCompatActivity() {
                     930.45, 500.00,
                     90, null
                 ),
-                null
+                null, null
             )
         )
 
@@ -289,7 +319,7 @@ class MainActivity : AppCompatActivity() {
                     90,
                     930.45, 14500.00,
                     90, null
-                ), null
+                ), null, null
             )
         )
 
