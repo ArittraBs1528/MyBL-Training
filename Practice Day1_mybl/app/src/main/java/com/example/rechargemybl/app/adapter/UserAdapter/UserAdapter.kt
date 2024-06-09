@@ -1,23 +1,28 @@
 package com.example.rechargemybl.app.adapter.UserAdapter
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_BILLS
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_PLAN_OFFER
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
+import com.example.rechargemybl.app.adapter.ChildAdapter.PlanOfferItemViewMargin
+import com.example.rechargemybl.app.adapter.ChildAdapter.PlanOfferAdapter
 import com.example.rechargemybl.app.model.BillDao
+import com.example.rechargemybl.app.model.PlanOfferDao
 import com.example.rechargemybl.app.model.RvData
 import com.example.rechargemybl.app.model.UserDao
 import com.example.rechargemybl.databinding.BillsItemsViewBinding
 import com.example.rechargemybl.databinding.ItemViewBinding
+import com.example.rechargemybl.databinding.PlanandofferBinding
 import java.util.Locale
 
 
@@ -48,6 +53,10 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             TYPE_BILLS -> {
                 return BillViewHolder.create(parent)
             }
+
+            TYPE_PLAN_OFFER -> {
+                return PlanOfferViewHolder.create(parent)
+            }
         }
 
         return UserViewHolder.create(parent)
@@ -60,6 +69,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when (holder) {
             is UserViewHolder -> holder.bind(dataSet.getOrNull(position)?.userDao)
             is BillViewHolder -> holder.bind(dataSet.getOrNull(position)?.billDao)
+            is PlanOfferViewHolder -> holder.bind(dataSet.getOrNull(position)?.planOffer)
         }
     }
 
@@ -106,7 +116,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             viewBinding.balance.text = user?.current_balance
 
-            viewBinding.validText.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024")
+            viewBinding.validText.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024", 11)
 
             //handle basic details section
             viewBinding.balance.text = user?.current_balance?.let {
@@ -142,7 +152,6 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
 
-
         private fun configureLoanButtons(viewBinding: ItemViewBinding, user: UserDao?) {
             if (user?.Loan_due != null) viewBinding.dueLoanAmount.text =
                 viewBinding.root.context.getString(R.string.dueLoanAmount, user.Loan_due.toString())
@@ -160,11 +169,13 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
 
-        private fun configureInternetDisplay(viewBinding: ItemViewBinding, userInternetInGB: Double) {
+        private fun configureInternetDisplay(
+            viewBinding: ItemViewBinding,
+            userInternetInGB: Double
+        ) {
             if (userInternetInGB == 0.00) {
                 viewBinding.balanceNull.visibility = View.VISIBLE
-            }
-            else if (userInternetInGB < 1.00) {
+            } else if (userInternetInGB < 1.00) {
                 val convertedToMB = userInternetInGB * 1024.00
 
                 val formattedUsage = when {
@@ -211,20 +222,47 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
 
-        fun bind(billsView: BillDao?) {
+        fun bind(billsDao: BillDao?) {
 
-
-            if (billsView != null) {
-                billsView.image?.let { viewBinding.cartInImage.setImageResource(it) }
-                billsView.sellAll?.let { viewBinding.seeAll.text = it }
-                billsView.sponsorName?.let { viewBinding.paystation.text = it }
-                billsView.bills?.let { viewBinding.bills.text = it }
-                billsView.poweredBy?.let { viewBinding.soujonno.text = viewBinding.root.context.getString(R.string.soujonno,it) }
-
+            if (billsDao != null) {
+                billsDao.image?.let { viewBinding.cartInImage.setImageResource(it) }
+                billsDao.sellAll?.let { viewBinding.seeAll.text = it }
+                billsDao.sponsorName?.let { viewBinding.paystation.text = it }
+                billsDao.bills?.let { viewBinding.bills.text = it }
+                billsDao.poweredBy?.let {
+                    viewBinding.soujonno.text =
+                        viewBinding.root.context.getString(R.string.soujonno, it)
+                }
 
             }
 
         }
     }
 
+    class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
+        private val marginLayout = PlanOfferItemViewMargin()
+        val layoutManager = LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        val planOfferAdapter = PlanOfferAdapter()
+
+        companion object {
+            fun create(parent: ViewGroup): PlanOfferViewHolder {
+                val inflater = LayoutInflater.from(parent.context)
+                val view = PlanandofferBinding.inflate(inflater, parent, false)
+                return PlanOfferViewHolder(view)
+            }
+        }
+
+        init {
+            viewBinding.planRcv.layoutManager = layoutManager
+            viewBinding.planRcv.addItemDecoration(marginLayout)
+            viewBinding.planRcv.adapter = planOfferAdapter
+        }
+
+        fun bind(planOfferDao: ArrayList<PlanOfferDao>?) {
+            if (planOfferDao != null) {
+                planOfferAdapter.submitData(planOfferDao)
+            }
+        }
+    }
 }

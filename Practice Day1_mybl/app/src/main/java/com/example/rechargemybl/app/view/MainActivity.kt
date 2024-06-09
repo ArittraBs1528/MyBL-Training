@@ -14,9 +14,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
-import com.example.rechargemybl.app.adapter.UserAdapter.ItemViewMargin
+import com.example.rechargemybl.app.adapter.UserAdapter.UserItemViewMargin
 import com.example.rechargemybl.app.adapter.UserAdapter.UserAdapter
 import com.example.rechargemybl.app.model.BillDao
+import com.example.rechargemybl.app.model.PlanOfferDao
 import com.example.rechargemybl.app.model.RvData
 
 import com.example.rechargemybl.app.model.UserDao
@@ -30,8 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     private val userAdapter = UserAdapter()
     private val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    private val itemDecoration = ItemViewMargin()
-    private var count = 1;
+    private val itemDecoration = UserItemViewMargin()
+    private var count = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         //handle basic details section
         val internetAmountInGB = (user.internet / 1024.0)
-        binding.validText.text = Helpers.highlightBoldSubstring(initialText)
+        binding.validText.text = Helpers.highlightBoldSubstring(initialText, 11)
         binding.balance.text = Helpers.formatCurrencyBalance(user.current_balance)
 
 
@@ -131,9 +132,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun createDemoUser(): ArrayList<RvData> {
         val RvInfo = ArrayList<RvData>()
+        val Listadd = ArrayList<PlanOfferDao>()
+        Listadd.add(PlanOfferDao(1,"list"))
+        Listadd.add(PlanOfferDao(2,"list2"))
+        Listadd.add(PlanOfferDao(3,"list3"))
+        Listadd.add(PlanOfferDao(4,"list3"))
+        Listadd.add(PlanOfferDao(5,"list3"))
+        Listadd.add(PlanOfferDao(6,"list3 fd"))
+        Listadd.add(PlanOfferDao(7,"list3 fdfg"))
+        Listadd.add(PlanOfferDao(8,"list3"))
+        Listadd.add(PlanOfferDao(9,"list3"))
+        Listadd.add(PlanOfferDao(10,"list3d gfsf"))
+        Listadd.add(PlanOfferDao(11,"list3 dsfsd fd"))
+
         RvInfo.add(
             RvData(
                 1,
+                "TYPE_PLAN_OFFER", null,
+                null, Listadd
+            )
+        )
+
+        RvInfo.add(
+            RvData(
+                2,
                 "TYPE_USER",
                 UserDao(
                     1,
@@ -142,12 +164,12 @@ class MainActivity : AppCompatActivity() {
                     930.45, 0.00,
                     50, null
                 ),
-                null
+                null, null
             )
         )
         RvInfo.add(
             RvData(
-                2,
+                3,
                 "TYPE_USER",
                 UserDao(
                     3,
@@ -156,38 +178,42 @@ class MainActivity : AppCompatActivity() {
                     930.45, 500.00,
                     90, null
                 ),
-                null
+                null, null
             )
         )
 
 
         RvInfo.add(
             RvData(
-                3,
+                4,
                 "TYPE_USER", UserDao(
                     2,
                     "4.68", null,
                     90,
                     930.45, 14500.00,
                     90, null
-                ), null
+                ), null, null
             )
         )
         RvInfo.add(
             RvData(
-                3,
+                5,
                 "TYPE_BILLS",
                 null,
-                BillDao(R.drawable.img1, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation")
+                BillDao(R.drawable.img1, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation"), null
             )
         )
         RvInfo.add(
             RvData(
-                3,
+                6,
                 "TYPE_BILLS", null,
-                BillDao(R.drawable.img3, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation")
+                BillDao(R.drawable.img3, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation"), null
             )
         )
+
+
+
+
 
 
         return RvInfo
@@ -261,7 +287,7 @@ class MainActivity : AppCompatActivity() {
                     930.45, 0.00,
                     50, null
                 ),
-                null
+                null, null
             )
         )
         RvInfo.add(
@@ -275,7 +301,7 @@ class MainActivity : AppCompatActivity() {
                     930.45, 500.00,
                     90, null
                 ),
-                null
+                null, null
             )
         )
 
@@ -289,7 +315,7 @@ class MainActivity : AppCompatActivity() {
                     90,
                     930.45, 14500.00,
                     90, null
-                ), null
+                ), null, null
             )
         )
 

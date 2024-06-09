@@ -24,11 +24,11 @@ object Helpers {
         return Pair("0", "0")
     }
 
-    fun highlightBoldSubstring(initialText: String): SpannableString {
+    fun highlightBoldSubstring(initialText: String, limit: Int): SpannableString {
         return SpannableString(initialText).apply {
             setSpan(
                 StyleSpan(Typeface.BOLD),
-                11,
+                limit,
                 initialText.length,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
@@ -61,10 +61,11 @@ object Helpers {
 
     const val TYPE_BALANCE = "TYPE_BALANCE"
     const val TYPE_BILLS = "TYPE_BILLS"
-
+    const val TYPE_PLAN_OFFER="TYPE_PLAN_OFFER"
 
     val typeMap = HashMap<String, Int>().apply {
         put(TYPE_BALANCE, 0)
         put(TYPE_BILLS, 1)
+        put(TYPE_PLAN_OFFER, 2)
     }
 }
