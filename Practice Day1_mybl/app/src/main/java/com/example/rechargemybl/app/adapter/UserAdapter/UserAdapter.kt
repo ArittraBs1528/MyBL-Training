@@ -116,7 +116,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             viewBinding.balance.text = user?.current_balance
 
-            viewBinding.validText.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024")
+            viewBinding.validText.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024", 11)
 
             //handle basic details section
             viewBinding.balance.text = user?.current_balance?.let {

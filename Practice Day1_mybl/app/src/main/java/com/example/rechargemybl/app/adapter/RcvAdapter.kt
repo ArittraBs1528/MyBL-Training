@@ -54,7 +54,7 @@ class rcvAdapter(val arrayList: ArrayList<UserDao>) : RecyclerView.Adapter<rcvAd
         holder.smsAmount.text = userInfo.sms.toString()
 
         //valid till
-        holder.validBalance.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024")
+        holder.validBalance.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024", 11)
 
         //handle basic details section
         val internetAmountinGB = (userInfo.internet / 1024.0)

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val userAdapter = UserAdapter()
     private val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     private val itemDecoration = UserItemViewMargin()
-    private var count = 1;
+    private var count = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         //handle basic details section
         val internetAmountInGB = (user.internet / 1024.0)
-        binding.validText.text = Helpers.highlightBoldSubstring(initialText)
+        binding.validText.text = Helpers.highlightBoldSubstring(initialText, 11)
         binding.balance.text = Helpers.formatCurrencyBalance(user.current_balance)
 
 

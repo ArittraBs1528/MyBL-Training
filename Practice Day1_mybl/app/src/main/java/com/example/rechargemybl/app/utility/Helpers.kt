@@ -24,11 +24,11 @@ object Helpers {
         return Pair("0", "0")
     }
 
-    fun highlightBoldSubstring(initialText: String): SpannableString {
+    fun highlightBoldSubstring(initialText: String, limit: Int): SpannableString {
         return SpannableString(initialText).apply {
             setSpan(
                 StyleSpan(Typeface.BOLD),
-                11,
+                limit,
                 initialText.length,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
