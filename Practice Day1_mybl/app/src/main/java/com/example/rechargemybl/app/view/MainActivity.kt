@@ -133,25 +133,21 @@ class MainActivity : AppCompatActivity() {
     private fun createDemoUser(): ArrayList<RvData> {
         val RvInfo = ArrayList<RvData>()
         val Listadd = ArrayList<PlanOfferDao>()
-        Listadd.add(PlanOfferDao("list"))
-        Listadd.add(PlanOfferDao("list2"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3 fd"))
-        Listadd.add(PlanOfferDao("list3 fdfg"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3d gfsf"))
-        Listadd.add(PlanOfferDao("list3 dsfsd fd"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3"))
-        Listadd.add(PlanOfferDao("list3"))
+        Listadd.add(PlanOfferDao(1,"list"))
+        Listadd.add(PlanOfferDao(2,"list2"))
+        Listadd.add(PlanOfferDao(3,"list3"))
+        Listadd.add(PlanOfferDao(4,"list3"))
+        Listadd.add(PlanOfferDao(5,"list3"))
+        Listadd.add(PlanOfferDao(6,"list3 fd"))
+        Listadd.add(PlanOfferDao(7,"list3 fdfg"))
+        Listadd.add(PlanOfferDao(8,"list3"))
+        Listadd.add(PlanOfferDao(9,"list3"))
+        Listadd.add(PlanOfferDao(10,"list3d gfsf"))
+        Listadd.add(PlanOfferDao(11,"list3 dsfsd fd"))
 
         RvInfo.add(
             RvData(
-                3,
+                1,
                 "TYPE_PLAN_OFFER", null,
                 null, Listadd
             )
@@ -159,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 
         RvInfo.add(
             RvData(
-                1,
+                2,
                 "TYPE_USER",
                 UserDao(
                     1,
@@ -173,7 +169,7 @@ class MainActivity : AppCompatActivity() {
         )
         RvInfo.add(
             RvData(
-                2,
+                3,
                 "TYPE_USER",
                 UserDao(
                     3,
@@ -189,7 +185,7 @@ class MainActivity : AppCompatActivity() {
 
         RvInfo.add(
             RvData(
-                3,
+                4,
                 "TYPE_USER", UserDao(
                     2,
                     "4.68", null,
@@ -201,7 +197,7 @@ class MainActivity : AppCompatActivity() {
         )
         RvInfo.add(
             RvData(
-                3,
+                5,
                 "TYPE_BILLS",
                 null,
                 BillDao(R.drawable.img1, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation"), null
@@ -209,7 +205,7 @@ class MainActivity : AppCompatActivity() {
         )
         RvInfo.add(
             RvData(
-                3,
+                6,
                 "TYPE_BILLS", null,
                 BillDao(R.drawable.img3, "বিলস", "সব দেখুন", "সৌজন্যেঃ", " PayStation"), null
             )

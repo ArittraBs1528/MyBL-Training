@@ -241,7 +241,9 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
-        val marginLayout = PlanOfferItemViewMargin()
+        private val marginLayout = PlanOfferItemViewMargin()
+        val layoutManager = LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        val planOfferAdapter = PlanOfferAdapter()
 
         companion object {
             fun create(parent: ViewGroup): PlanOfferViewHolder {
@@ -251,13 +253,16 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
-        fun bind(planOfferDao: ArrayList<PlanOfferDao>?) {
+        init {
+            viewBinding.planRcv.layoutManager = layoutManager
+            viewBinding.planRcv.addItemDecoration(marginLayout)
+            viewBinding.planRcv.adapter = planOfferAdapter
+        }
 
-            viewBinding.planRcv.layoutManager =
-                LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
-            if (marginLayout.itemDecorationCount <= 1)
-                viewBinding.planRcv.addItemDecoration(marginLayout)
-            viewBinding.planRcv.adapter = planOfferDao?.let { PlanOfferAdapter(it) }
+        fun bind(planOfferDao: ArrayList<PlanOfferDao>?) {
+            if (planOfferDao != null) {
+                planOfferAdapter.submitData(planOfferDao)
+            }
         }
     }
 }

@@ -4,26 +4,80 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
-import com.example.rechargemybl.app.adapter.rcvAdapter
+import com.example.rechargemybl.app.adapter.UserAdapter.UserAdapter
 import com.example.rechargemybl.app.model.PlanOfferDao
+import com.example.rechargemybl.databinding.PlanandofferBinding
+import com.example.rechargemybl.databinding.PlanitemBinding
 
-class PlanOfferAdapter(val list : ArrayList<PlanOfferDao>) : RecyclerView.Adapter<PlanOfferAdapter.childHolder>() {
-    class childHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
-        val textView = itemView.findViewById<TextView>(R.id.typesOffer)
-    }
+class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): childHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.planitem, parent, false)
-        return childHolder(view)
+    private val childDataSet = ArrayList<PlanOfferDao>()
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        return ChildViewHolder.create(parent)
+
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return childDataSet.size
     }
 
-    override fun onBindViewHolder(holder: childHolder, position: Int) {
-        holder.textView.text = list[position].plan
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is ChildViewHolder -> childDataSet.getOrNull(position)?.let { holder.bind(it) }
+
+        }
+    }
+
+    fun submitData(submittedItem: ArrayList<PlanOfferDao>) {
+        val oldData = ArrayList(childDataSet)
+        childDataSet.clear()
+        childDataSet.addAll(submittedItem)
+
+        val diffUtilCallBack = object : DiffUtil.Callback() {
+            override fun getOldListSize(): Int {
+                return oldData.size
+            }
+
+            override fun getNewListSize(): Int {
+                return childDataSet.size
+            }
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return childDataSet[newItemPosition].id == oldData[oldItemPosition].id
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return childDataSet[newItemPosition] == oldData[oldItemPosition]
+            }
+
+        }
+        val diffResult = DiffUtil.calculateDiff(diffUtilCallBack)
+        diffResult.dispatchUpdatesTo(this)
+
+
+    }
+
+    class ChildViewHolder(val viewBinding: PlanitemBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
+
+
+        companion object {
+            fun create(parent: ViewGroup): ChildViewHolder {
+
+                val inflater = LayoutInflater.from(parent.context)
+                val view = PlanitemBinding.inflate(inflater, parent, false)
+                return ChildViewHolder(view)
+            }
+        }
+
+        fun bind(childDao: PlanOfferDao) {
+            viewBinding.typesOffer.text = childDao.plan
+        }
     }
 }
