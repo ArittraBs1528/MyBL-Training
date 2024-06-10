@@ -57,16 +57,16 @@ object Helpers {
     }
 
     const val TYPE_BALANCE = "balance_detail"
-    const val TYPE_PLAN_OFFER="generic_rail"
+    const val TYPE_PLAN_OFFER = "generic_rail"
     const val TYPE_BILLS = "audiobook"
-    const val TYPE_LIVE_RADIO = "audiobook"
+    const val TYPE_LIVE_RADIO = "live_radio"
 
 
     val typeMap = HashMap<String, Int>().apply {
         put(TYPE_BALANCE, 0)
         put(TYPE_PLAN_OFFER, 1)
         put(TYPE_BILLS, 2)
-        put(TYPE_LIVE_RADIO, 2)
+        put(TYPE_LIVE_RADIO, 3)
 
     }
 }

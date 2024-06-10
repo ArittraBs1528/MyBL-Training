@@ -12,6 +12,7 @@ import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_BILLS
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_LIVE_RADIO
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_PLAN_OFFER
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
 import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
@@ -59,6 +60,9 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             TYPE_PLAN_OFFER -> {
                 return PlanOfferViewHolder.create(parent)
+            }
+            TYPE_LIVE_RADIO ->{
+                return BillViewHolder.create(parent)
             }
         }
 
@@ -264,9 +268,9 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
         private val marginLayout = PlanOfferItemViewMargin()
-        val layoutManager =
+        private val layoutManager =
             LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
-        val planOfferAdapter = PlanOfferAdapter()
+        private val planOfferAdapter = PlanOfferAdapter()
 
         companion object {
             fun create(parent: ViewGroup): PlanOfferViewHolder {
@@ -282,9 +286,9 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewBinding.planRcv.adapter = planOfferAdapter
         }
 
-        fun bind(planOfferDao: List<Rail>?) {
-            if (planOfferDao != null) {
-                planOfferAdapter.submitData(planOfferDao)
+        fun bind(planOfferList: List<Rail>?) {
+            if (planOfferList != null) {
+                planOfferAdapter.submitData(planOfferList)
             }
         }
     }
