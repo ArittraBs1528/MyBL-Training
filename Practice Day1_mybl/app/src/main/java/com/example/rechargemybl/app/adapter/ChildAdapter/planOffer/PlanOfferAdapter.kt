@@ -1,15 +1,15 @@
-package com.example.rechargemybl.app.adapter.ChildAdapter
+package com.example.rechargemybl.app.adapter.ChildAdapter.planOffer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rechargemybl.app.model.dummy.PlanOfferDao
+import com.example.rechargemybl.app.model.apiModel.Rail
 import com.example.rechargemybl.databinding.PlanitemBinding
 
 class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val childDataSet = ArrayList<PlanOfferDao>()
+    private val childDataSet = ArrayList<Rail>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -29,10 +29,12 @@ class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    fun submitData(submittedItem: ArrayList<PlanOfferDao>) {
+    fun submitData(submittedItem: List<Rail>?) {
         val oldData = ArrayList(childDataSet)
         childDataSet.clear()
-        childDataSet.addAll(submittedItem)
+        if (submittedItem != null) {
+            childDataSet.addAll(submittedItem)
+        }
 
         val diffUtilCallBack = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int {
@@ -72,8 +74,8 @@ class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         }
 
-        fun bind(childDao: PlanOfferDao) {
-            viewBinding.typesOffer.text = childDao.plan
+        fun bind(rail: Rail) {
+            viewBinding.typesOffer.text = rail.titleEn
 
         }
     }

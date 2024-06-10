@@ -1,4 +1,4 @@
-package com.example.rechargemybl.app.adapter.UserAdapter
+package com.example.rechargemybl.app.adapter.mainAdapter
 
 import android.graphics.Rect
 import android.view.View
@@ -13,8 +13,8 @@ class UserItemViewMargin :RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.top = 16
-//        outRect.bottom = 10
+//        outRect.top = 16
+        outRect.bottom = 15
 //        outRect.left = 10
 //        outRect.right = 10
 

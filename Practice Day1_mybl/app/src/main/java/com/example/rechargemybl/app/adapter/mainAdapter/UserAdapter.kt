@@ -1,4 +1,4 @@
-package com.example.rechargemybl.app.adapter.UserAdapter
+package com.example.rechargemybl.app.adapter.mainAdapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,32 +14,35 @@ import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_BILLS
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_PLAN_OFFER
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
-import com.example.rechargemybl.app.adapter.ChildAdapter.PlanOfferItemViewMargin
-import com.example.rechargemybl.app.adapter.ChildAdapter.PlanOfferAdapter
+import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
+import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferAdapter
+import com.example.rechargemybl.app.model.apiModel.AccountBalance
+import com.example.rechargemybl.app.model.apiModel.Data
+import com.example.rechargemybl.app.model.apiModel.Loan
+import com.example.rechargemybl.app.model.apiModel.Rail
 import com.example.rechargemybl.app.model.dummy.BillDao
-import com.example.rechargemybl.app.model.dummy.PlanOfferDao
-import com.example.rechargemybl.app.model.dummy.RvData
-import com.example.rechargemybl.app.model.dummy.UserDao
 import com.example.rechargemybl.databinding.BillsItemsViewBinding
 import com.example.rechargemybl.databinding.ItemViewBinding
 import com.example.rechargemybl.databinding.PlanandofferBinding
+import java.text.SimpleDateFormat
 import java.util.Locale
 
 
 class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val dataSet = ArrayList<RvData>()
+    private val dataSet = ArrayList<Data>()
 
     override fun getItemCount(): Int {
         return dataSet.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        val type = dataSet[position].type
+        val type = dataSet[position].componentKey
         return typeMap[type] ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
 
         Log.wtf("Aritra", "onCreateViewHolder: $viewType")
 
@@ -47,7 +50,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         when (key) {
             TYPE_BALANCE -> {
-                return UserViewHolder.create(parent)
+                return BalanceViewHolder.create(parent)
             }
 
             TYPE_BILLS -> {
@@ -59,7 +62,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
-        return UserViewHolder.create(parent)
+        return BalanceViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -67,13 +70,18 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         Log.wtf("aritra", "onBindViewHolder: $position")
 
         when (holder) {
-            is UserViewHolder -> holder.bind(dataSet.getOrNull(position)?.userDao)
-            is BillViewHolder -> holder.bind(dataSet.getOrNull(position)?.billDao)
-            is PlanOfferViewHolder -> holder.bind(dataSet.getOrNull(position)?.planOffer)
+            is BalanceViewHolder -> dataSet.getOrNull(position)?.accountBalance?.let {
+                holder.bind(
+                    it
+                )
+            }
+
+//            is BillViewHolder -> holder.bind(dataSet.getOrNull(position)?.billDao)
+            is PlanOfferViewHolder -> holder.bind(dataSet.getOrNull(position)?.rails)
         }
     }
 
-    fun submitData(people: List<RvData>) {
+    fun submitData(people: List<Data>) {
         val oldData = ArrayList(dataSet)  //creates a copy only
         dataSet.clear()
         dataSet.addAll(people)
@@ -100,69 +108,81 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
 
-    class UserViewHolder(private val viewBinding: ItemViewBinding) :
+    class BalanceViewHolder(private val viewBinding: ItemViewBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
 
         companion object {
-            fun create(parent: ViewGroup): UserViewHolder {
+            fun create(parent: ViewGroup): BalanceViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val view = ItemViewBinding.inflate(inflater, parent, false)
-                return UserViewHolder(view)
+                return BalanceViewHolder(view)
             }
         }
 
 
-        fun bind(user: UserDao?) {
+        fun bind(accountBalance: AccountBalance) {
 
-            viewBinding.balance.text = user?.currentBalance
+            //  --- handle left Tk Section
+            val userBalanceData = accountBalance.balance
 
-            viewBinding.validText.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024", 11)
+            val expireIn = userBalanceData?.expiresIn
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val date = expireIn?.let { sdf.parse(it) }
+            var formattedDate = SimpleDateFormat("d MMMM, yyyy", Locale.getDefault()).format(date)
+            formattedDate = "Valid till $formattedDate"
 
-            //handle basic details section
-            viewBinding.balance.text = user?.currentBalance?.let {
-                Helpers.formatCurrencyBalance(it)
-            }
+
+            viewBinding.validText.text = Helpers.highlightBoldSubstring(formattedDate, 11)
+            val balanceTk = userBalanceData?.amount.toString()
+            viewBinding.balance.text = Helpers.formatCurrencyBalance(balanceTk)
 
 
             //handle recharge button section
-            if (user?.currentBalance?.toDouble()!! < 10.00) viewBinding.rechargeBtn.setBackgroundResource(
-                R.drawable.button_red_back
-            )
+            val loan = userBalanceData?.loan
+//        if (user.currentBalance!!.toDouble() < 10.00)
+//            binding.rechargeBtn.setBackgroundResource(R.drawable.button_red_back)
+
 
             //handle loan button section
-            configureLoanButtons(viewBinding, user)
+            if (loan != null) {
+                configureLoanButtons(viewBinding, loan)
+            }
+
+            //  --- end handle left Tk Section ---- //
+
+
+            // --- handle right portion --- //
 
             //handle internet section
-            val userInternetInGB = (user.internet?.div(1024.0))
-            if (userInternetInGB != null) {
-                configureInternetDisplay(viewBinding, userInternetInGB)
+            val internetBalance = accountBalance.internet
+            val internetAmountInGB = (internetBalance?.total?.div(1024.0))
+            if (internetAmountInGB != null) {
+                configureInternetDisplay(viewBinding, internetAmountInGB)
             }
 
 
             //handle minute section
-            val minuteAmount = user.min.toString()
-            val pair = Helpers.splitMinutesAndSeconds(minuteAmount);
-            val minutes = pair.first
-            val seconds = pair.second
+            val minuteAmount = accountBalance.minutes.toString()
+            val (minutes, seconds) = Helpers.splitMinutesAndSeconds(minuteAmount);
             viewBinding.minuteAmount.text = minutes
             viewBinding.minSec.text = viewBinding.root.context.getString(R.string.Minutes, seconds)
 
 
             //handle sms section
-            viewBinding.smsAmount.text = user.sms.toString()
+            val smsAmount = accountBalance.sms
+            viewBinding.smsAmount.text = smsAmount?.total.toString()
+
+            // --- end handle right portion --- //
 
         }
 
 
-        private fun configureLoanButtons(viewBinding: ItemViewBinding, user: UserDao?) {
-            if (user?.loanDue != null) viewBinding.dueLoanAmount.text =
-                viewBinding.root.context.getString(R.string.dueLoanAmount, user.loanDue.toString())
-            else if (user?.canTakeLoan != null) {
+        private fun configureLoanButtons(viewBinding: ItemViewBinding, loan: Loan) {
+            if (loan.isEzligible == true) {
                 viewBinding.loanbtn.visibility = View.VISIBLE
                 viewBinding.duoLoanbtn.visibility = View.GONE
-                viewBinding.takeLoan.text = viewBinding.root.context.getString(
-                    R.string.takeLoan, user.canTakeLoan.toString()
-                )
+                viewBinding.takeLoan.text =
+                    viewBinding.root.context.getString(R.string.takeLoan, loan.amount.toString())
             } else {
                 viewBinding.loanbtn.visibility = View.GONE
                 viewBinding.duoLoanbtn.visibility = View.GONE
@@ -244,7 +264,8 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
         private val marginLayout = PlanOfferItemViewMargin()
-        val layoutManager = LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager =
+            LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
         val planOfferAdapter = PlanOfferAdapter()
 
         companion object {
@@ -261,7 +282,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewBinding.planRcv.adapter = planOfferAdapter
         }
 
-        fun bind(planOfferDao: ArrayList<PlanOfferDao>?) {
+        fun bind(planOfferDao: List<Rail>?) {
             if (planOfferDao != null) {
                 planOfferAdapter.submitData(planOfferDao)
             }
