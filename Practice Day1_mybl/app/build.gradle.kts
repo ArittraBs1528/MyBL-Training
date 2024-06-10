@@ -51,5 +51,15 @@ dependencies {
 
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    // Gson
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    //OKHTTP
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+
 
 }

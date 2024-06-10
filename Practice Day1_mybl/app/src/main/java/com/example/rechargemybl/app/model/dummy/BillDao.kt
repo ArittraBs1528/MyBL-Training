@@ -1,4 +1,4 @@
-package com.example.rechargemybl.app.model
+package com.example.rechargemybl.app.model.dummy
 
 data class BillDao(
     val image : Int?,

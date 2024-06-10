@@ -1,15 +1,10 @@
 package com.example.rechargemybl.app.adapter.ChildAdapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rechargemybl.R
-import com.example.rechargemybl.app.adapter.UserAdapter.UserAdapter
-import com.example.rechargemybl.app.model.PlanOfferDao
-import com.example.rechargemybl.databinding.PlanandofferBinding
+import com.example.rechargemybl.app.model.dummy.PlanOfferDao
 import com.example.rechargemybl.databinding.PlanitemBinding
 
 class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -74,10 +69,12 @@ class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val view = PlanitemBinding.inflate(inflater, parent, false)
                 return ChildViewHolder(view)
             }
+
         }
 
         fun bind(childDao: PlanOfferDao) {
             viewBinding.typesOffer.text = childDao.plan
+
         }
     }
 }

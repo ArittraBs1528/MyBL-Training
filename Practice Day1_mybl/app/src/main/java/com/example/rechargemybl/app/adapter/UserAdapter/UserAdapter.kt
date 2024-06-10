@@ -16,10 +16,10 @@ import com.example.rechargemybl.app.Utility.Helpers.TYPE_PLAN_OFFER
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
 import com.example.rechargemybl.app.adapter.ChildAdapter.PlanOfferItemViewMargin
 import com.example.rechargemybl.app.adapter.ChildAdapter.PlanOfferAdapter
-import com.example.rechargemybl.app.model.BillDao
-import com.example.rechargemybl.app.model.PlanOfferDao
-import com.example.rechargemybl.app.model.RvData
-import com.example.rechargemybl.app.model.UserDao
+import com.example.rechargemybl.app.model.dummy.BillDao
+import com.example.rechargemybl.app.model.dummy.PlanOfferDao
+import com.example.rechargemybl.app.model.dummy.RvData
+import com.example.rechargemybl.app.model.dummy.UserDao
 import com.example.rechargemybl.databinding.BillsItemsViewBinding
 import com.example.rechargemybl.databinding.ItemViewBinding
 import com.example.rechargemybl.databinding.PlanandofferBinding
@@ -114,18 +114,18 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(user: UserDao?) {
 
-            viewBinding.balance.text = user?.current_balance
+            viewBinding.balance.text = user?.currentBalance
 
             viewBinding.validText.text = Helpers.highlightBoldSubstring("Valid till 25 Jun, 2024", 11)
 
             //handle basic details section
-            viewBinding.balance.text = user?.current_balance?.let {
+            viewBinding.balance.text = user?.currentBalance?.let {
                 Helpers.formatCurrencyBalance(it)
             }
 
 
             //handle recharge button section
-            if (user?.current_balance?.toDouble()!! < 10.00) viewBinding.rechargeBtn.setBackgroundResource(
+            if (user?.currentBalance?.toDouble()!! < 10.00) viewBinding.rechargeBtn.setBackgroundResource(
                 R.drawable.button_red_back
             )
 
@@ -133,8 +133,10 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             configureLoanButtons(viewBinding, user)
 
             //handle internet section
-            val userInternetInGB = (user.internet.div(1024.0))
-            configureInternetDisplay(viewBinding, userInternetInGB)
+            val userInternetInGB = (user.internet?.div(1024.0))
+            if (userInternetInGB != null) {
+                configureInternetDisplay(viewBinding, userInternetInGB)
+            }
 
 
             //handle minute section
@@ -153,13 +155,13 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
         private fun configureLoanButtons(viewBinding: ItemViewBinding, user: UserDao?) {
-            if (user?.Loan_due != null) viewBinding.dueLoanAmount.text =
-                viewBinding.root.context.getString(R.string.dueLoanAmount, user.Loan_due.toString())
-            else if (user?.can_take_loan != null) {
+            if (user?.loanDue != null) viewBinding.dueLoanAmount.text =
+                viewBinding.root.context.getString(R.string.dueLoanAmount, user.loanDue.toString())
+            else if (user?.canTakeLoan != null) {
                 viewBinding.loanbtn.visibility = View.VISIBLE
                 viewBinding.duoLoanbtn.visibility = View.GONE
                 viewBinding.takeLoan.text = viewBinding.root.context.getString(
-                    R.string.takeLoan, user.can_take_loan.toString()
+                    R.string.takeLoan, user.canTakeLoan.toString()
                 )
             } else {
                 viewBinding.loanbtn.visibility = View.GONE

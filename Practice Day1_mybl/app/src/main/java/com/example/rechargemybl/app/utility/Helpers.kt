@@ -8,10 +8,6 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.view.View
-import com.example.rechargemybl.app.adapter.rcvAdapter
-import com.example.rechargemybl.app.model.UserDao
-import com.example.rechargemybl.databinding.ActivityMainBinding
 
 object Helpers {
 
@@ -27,6 +23,7 @@ object Helpers {
     fun highlightBoldSubstring(initialText: String, limit: Int): SpannableString {
         return SpannableString(initialText).apply {
             setSpan(
+
                 StyleSpan(Typeface.BOLD),
                 limit,
                 initialText.length,
@@ -59,7 +56,7 @@ object Helpers {
         }
     }
 
-    const val TYPE_BALANCE = "TYPE_BALANCE"
+    const val TYPE_BALANCE = "balance_detail"
     const val TYPE_BILLS = "TYPE_BILLS"
     const val TYPE_PLAN_OFFER="TYPE_PLAN_OFFER"
 
