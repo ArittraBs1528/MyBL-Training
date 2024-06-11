@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Data(
     val banner: String,
     @SerializedName("component_key") val componentKey: String,
-    val cta: Cta,
+    val cta: Cta? = null,
     @SerializedName("data") val accountBalance: AccountBalance,
     val icon: String,
     val id: Int,

@@ -11,29 +11,29 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="6dp">
-
+        <!--            android:background="@drawable/img_background"-->
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/icon"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/img_background"
+
             android:padding="2dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_home_24" />
+            tools:srcCompat="@drawable/baseline_home_24" />
 
         <TextView
-            android:id="@+id/bills"
+            android:id="@+id/titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            app:layout_constraintBottom_toBottomOf="@+id/icon"
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            app:layout_constraintTop_toTopOf="@+id/icon"
             app:layout_goneMarginLeft="10dp"
             app:layout_goneMarginTop="10dp"
             tools:text="বিলস" />
@@ -92,7 +92,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cartInImage"
             app:layout_goneMarginTop="10dp"
-            tools:text=" PayStation" />
+            android:text=" PayStation" />
 
         <TextView
             android:id="@+id/soujonno"
@@ -102,14 +102,20 @@
             app:layout_constraintEnd_toStartOf="@+id/paystation"
             app:layout_constraintTop_toBottomOf="@+id/cartInImage"
             app:layout_constraintTop_toTopOf="@+id/paystation"
-            tools:text="সৌজন্যেঃ" />
+            android:text="সৌজন্যেঃ" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="imageView3,bills,seeAll,arrow" />
+            app:constraint_referenced_ids="icon,titles,seeAll,arrow" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/grp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="seeAll,arrow"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

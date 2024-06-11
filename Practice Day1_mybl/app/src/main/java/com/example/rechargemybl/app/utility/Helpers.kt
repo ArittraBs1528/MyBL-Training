@@ -8,6 +8,8 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 object Helpers {
 
@@ -56,16 +58,26 @@ object Helpers {
         }
     }
 
+    fun getBalanceTime(serverTime: String): String{
+        try {
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val date = sdf.parse(serverTime)
+            return SimpleDateFormat("d MMMM, yyyy", Locale.getDefault()).format(date)
+        }catch (e: Exception){
+            return ""
+        }
+    }
+
     const val TYPE_BALANCE = "balance_detail"
-    const val TYPE_PLAN_OFFER = "generic_rail"
-    const val TYPE_BILLS = "audiobook"
+    const val TYPE_GENERIC_RAIL = "generic_rail"
+    const val TYPE_AUDIOBOOK = "audiobook"
     const val TYPE_LIVE_RADIO = "live_radio"
 
 
     val typeMap = HashMap<String, Int>().apply {
         put(TYPE_BALANCE, 0)
-        put(TYPE_PLAN_OFFER, 1)
-        put(TYPE_BILLS, 2)
+        put(TYPE_GENERIC_RAIL, 1)
+        put(TYPE_AUDIOBOOK, 2)
         put(TYPE_LIVE_RADIO, 3)
 
     }

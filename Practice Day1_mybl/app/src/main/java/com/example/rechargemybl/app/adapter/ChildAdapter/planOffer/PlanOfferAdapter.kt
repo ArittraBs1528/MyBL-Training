@@ -1,9 +1,11 @@
 package com.example.rechargemybl.app.adapter.ChildAdapter.planOffer
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.rechargemybl.app.model.apiModel.Rail
 import com.example.rechargemybl.databinding.PlanitemBinding
 
@@ -56,8 +58,6 @@ class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
         val diffResult = DiffUtil.calculateDiff(diffUtilCallBack)
         diffResult.dispatchUpdatesTo(this)
-
-
     }
 
     class ChildViewHolder(val viewBinding: PlanitemBinding) :
@@ -75,7 +75,25 @@ class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         fun bind(rail: Rail) {
+
+
             viewBinding.typesOffer.text = rail.titleEn
+            if (rail.isHighlight == true) {
+                viewBinding.dot.visibility = View.VISIBLE
+            } else {
+                viewBinding.dot.visibility = View.INVISIBLE
+            }
+
+            if (rail.icon.isNullOrEmpty()) {
+                viewBinding.railsIcon.visibility = View.GONE
+            } else {
+                viewBinding.railsIcon.visibility = View.VISIBLE
+                Glide.with(viewBinding.railsIcon.context)
+                    .load(rail.icon)
+                    .into(viewBinding.railsIcon)
+
+            }
+
 
         }
     }

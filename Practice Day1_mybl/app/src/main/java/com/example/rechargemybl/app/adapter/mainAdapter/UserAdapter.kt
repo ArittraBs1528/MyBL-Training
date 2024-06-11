@@ -8,24 +8,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
-import com.example.rechargemybl.app.Utility.Helpers.TYPE_BILLS
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_AUDIOBOOK
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_LIVE_RADIO
-import com.example.rechargemybl.app.Utility.Helpers.TYPE_PLAN_OFFER
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_GENERIC_RAIL
+import com.example.rechargemybl.app.Utility.Helpers.getBalanceTime
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
-import com.example.rechargemybl.app.adapter.ChildAdapter.childBillAdapter.childBillAdapter
 import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
 import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferAdapter
 import com.example.rechargemybl.app.model.apiModel.AccountBalance
 import com.example.rechargemybl.app.model.apiModel.Data
 import com.example.rechargemybl.app.model.apiModel.Loan
 import com.example.rechargemybl.app.model.apiModel.Rail
-import com.example.rechargemybl.app.model.dummy.BillDao
-import com.example.rechargemybl.databinding.BillsBinding
 
 import com.example.rechargemybl.databinding.ItemViewBinding
+import com.example.rechargemybl.databinding.ItemsViewBillsBinding
 import com.example.rechargemybl.databinding.PlanandofferBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -34,7 +34,6 @@ import java.util.Locale
 class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dataSet = ArrayList<Data>()
-    private var lastThreeListDataSet: List<Data> = ArrayList()
 
     override fun getItemCount(): Int {
         return dataSet.size
@@ -57,18 +56,18 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 return BalanceViewHolder.create(parent)
             }
 
-            TYPE_PLAN_OFFER -> {
+            TYPE_GENERIC_RAIL -> {
                 return PlanOfferViewHolder.create(parent)
             }
 
-            TYPE_BILLS -> {
-                return BillViewHolder.create(parent)
+            TYPE_AUDIOBOOK -> {
+                return AudioBookViewHolder.create(parent)
             }
-//            TYPE_LIVE_RADIO -> {
-//                return BillViewHolder.create(parent)
-//            }
 
 
+            TYPE_LIVE_RADIO -> {
+                return LiveRadioViewHolder.create(parent)
+            }
         }
 
         return BalanceViewHolder.create(parent)
@@ -85,13 +84,10 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
             }
 
-            is BillViewHolder -> holder.bind(lastThreeListDataSet)
+            is AudioBookViewHolder -> dataSet.getOrNull(position)?.let { holder.bind(it) }
+            is LiveRadioViewHolder -> dataSet.getOrNull(position)?.let { holder.bind(it) }
             is PlanOfferViewHolder -> holder.bind(dataSet.getOrNull(position)?.rails)
         }
-    }
-
-    fun getLastThreeList(lastThreeList: List<Data>) {
-        lastThreeListDataSet = lastThreeList
     }
 
     fun submitData(people: List<Data>) {
@@ -138,12 +134,9 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             //  --- handle left Tk Section
             val userBalanceData = accountBalance.balance
 
-            val expireIn = userBalanceData?.expiresIn
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val date = expireIn?.let { sdf.parse(it) }
-            var formattedDate = SimpleDateFormat("d MMMM, yyyy", Locale.getDefault()).format(date)
-            formattedDate = "Valid till $formattedDate"
-
+            val formattedDate = userBalanceData?.expiresIn?.let {
+                "Valid till ${getBalanceTime(it)}"
+            } ?: ""
 
             viewBinding.validText.text = Helpers.highlightBoldSubstring(formattedDate, 11)
             val balanceTk = userBalanceData?.amount.toString()
@@ -172,18 +165,26 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             if (internetAmountInGB != null) {
                 configureInternetDisplay(viewBinding, internetAmountInGB)
             }
+            if (accountBalance.internet?.remaining!! < accountBalance.internet.threshold!!) {
+                viewBinding.internetBalanceNull.visibility = View.VISIBLE
+            }
 
 
             //handle minute section
-            val minuteAmount = accountBalance.minutes.toString()
-            val (minutes, seconds) = Helpers.splitMinutesAndSeconds(minuteAmount);
-            viewBinding.minuteAmount.text = minutes
-            viewBinding.minSec.text = viewBinding.root.context.getString(R.string.Minutes, seconds)
+            val minuteAmount = accountBalance.minutes?.total.toString()
+            viewBinding.minuteAmount.text = minuteAmount
+            viewBinding.minSec.text = accountBalance.minutes?.unit.toString()
+            if (accountBalance.minutes?.remaining!! < accountBalance.minutes.threshold!!) {
+                viewBinding.minuteNull.visibility = View.VISIBLE
+            }
 
 
             //handle sms section
+            if (accountBalance.sms?.remaining!! < accountBalance.minutes.threshold) {
+                viewBinding.msgNull.visibility = View.VISIBLE
+            }
             val smsAmount = accountBalance.sms
-            viewBinding.smsAmount.text = smsAmount?.total.toString()
+            viewBinding.smsAmount.text = smsAmount.total.toString()
 
             // --- end handle right portion --- //
 
@@ -209,7 +210,7 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             userInternetInGB: Double
         ) {
             if (userInternetInGB == 0.00) {
-                viewBinding.balanceNull.visibility = View.VISIBLE
+                viewBinding.internetBalanceNull.visibility = View.VISIBLE
             } else if (userInternetInGB < 1.00) {
                 val convertedToMB = userInternetInGB * 1024.00
 
@@ -245,43 +246,89 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
 
-    class BillViewHolder(private val viewBinding: BillsBinding) :
+    class AudioBookViewHolder(private val viewBinding: ItemsViewBillsBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
 
-        private val marginLayout = PlanOfferItemViewMargin()
-        private val layoutManager =
-            LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
-        private val billAdapter = childBillAdapter()
-
         companion object {
-            fun create(parent: ViewGroup): BillViewHolder {
+            fun create(parent: ViewGroup): AudioBookViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val view = BillsBinding.inflate(inflater, parent, false)
-                return BillViewHolder(view)
+                val view = ItemsViewBillsBinding.inflate(inflater, parent, false)
+                return AudioBookViewHolder(view)
             }
         }
 
-        init {
-            viewBinding.billsRCV.layoutManager = layoutManager
-            viewBinding.billsRCV.addItemDecoration(marginLayout)
-            viewBinding.billsRCV.adapter = billAdapter
-        }
 
-        fun bind(billsDao: List<Data>) {
+        fun bind(bills: Data) {
 
-            billAdapter.submitData(billsDao)
+            Glide.with(viewBinding.cartInImage.context)
+                .load(bills.banner)
+                .into(viewBinding.cartInImage)
 
-            //                billsDao.image?.let { viewBinding.cartInImage.setImageResource(it) }
-//                billsDao.sellAll?.let { viewBinding.seeAll.text = it }
-//                billsDao.sponsorName?.let { viewBinding.paystation.text = it }
-//                billsDao.bills?.let { viewBinding.bills.text = it }
-//                billsDao.poweredBy?.let {
-//                    viewBinding.soujonno.text =
-//                        viewBinding.root.context.getString(R.string.soujonno, it)
+
+
+            viewBinding.seeAll.text = bills.cta?.nameBn
+            if (bills.isTitleShow) {
+                viewBinding.titles.text = bills.titleBn
+                Glide.with(viewBinding.icon.context)
+                    .load(bills.icon).into(viewBinding.icon)
+            }
+
+
+            if (bills.cta == null) {
+                viewBinding.grp.visibility = View.GONE
+            }
+
 
         }
 
     }
+
+
+    class LiveRadioViewHolder(private val viewBinding: ItemsViewBillsBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
+
+        companion object {
+            fun create(parent: ViewGroup): AudioBookViewHolder {
+                val inflater = LayoutInflater.from(parent.context)
+                val view = ItemsViewBillsBinding.inflate(inflater, parent, false)
+                return AudioBookViewHolder(view)
+            }
+        }
+
+
+        fun bind(bills: Data) {
+
+            Glide.with(viewBinding.cartInImage.context)
+                .load(bills.banner)
+                .into(viewBinding.cartInImage)
+
+            Glide.with(viewBinding.icon.context)
+                .load(bills.icon).into(viewBinding.icon)
+
+            viewBinding.seeAll.text = bills.cta?.nameBn
+            viewBinding.titles.text = bills.titleBn
+
+            if (bills.isTitleShow) {
+                viewBinding.titles.visibility = View.VISIBLE
+                viewBinding.icon.visibility = View.VISIBLE
+            } else {
+                viewBinding.titles.visibility = View.GONE
+                viewBinding.icon.visibility = View.GONE
+            }
+
+
+            viewBinding.seeAll.text = bills.cta?.nameEn
+
+            if (bills.cta == null) {
+                viewBinding.grp.visibility = View.GONE
+            } else {
+                viewBinding.grp.visibility = View.VISIBLE
+            }
+        }
+
+    }
+
+
 }
 
 class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
@@ -306,6 +353,8 @@ class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
     }
 
     fun bind(planOfferList: List<Rail>?) {
+
+
         if (planOfferList != null) {
             planOfferAdapter.submitData(planOfferList)
         }

@@ -49,31 +49,34 @@ class HomeActivity : AppCompatActivity() {
         }
         setStatusBarColor(ContextCompat.getColor(this, R.color.orange))
 
-
+        setUpUi()
         //loading data from api
         loadedDataFromApi()
 
 
         //balance section  - observe viewModel BalanceData
         viewModel.data.observe(this) { data ->
-
-            val lastThree = data.takeLast(3)
-            data.dropLast(2)
-            prepareUserListView(data,lastThree)
+            updateData(data)
         }
 
 
-//        binding.swiperefresh.setOnRefreshListener {
+        binding.swiperefresh.setOnRefreshListener {
 //            count++;
-//            binding.swiperefresh.isRefreshing = false
-//
+            binding.swiperefresh.isRefreshing = false
+
 //            if (count % 2 == 0)
 //                updateData(createDemoUser2())
 //            else
 //                updateData(createDemoUser())
-//        }
+        }
 
 
+    }
+
+    private fun setUpUi() {
+        binding.peopleList.layoutManager = layoutManager
+        binding.peopleList.addItemDecoration(itemDecoration)
+        binding.peopleList.adapter = userAdapter
     }
 
     private fun loadedDataFromApi() {
@@ -82,17 +85,8 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun updateData(list: List<Data>) {
-
-        userAdapter.submitData(list)
-    }
-
-    private fun prepareUserListView(list: List<Data>, lastThree: List<Data>) {
-        binding.peopleList.layoutManager = layoutManager
-        binding.peopleList.addItemDecoration(itemDecoration)
-        binding.peopleList.adapter = userAdapter
-        updateData(list)
-        userAdapter.getLastThreeList(lastThree)
-
+        val newList = list.filter { it.isEligible }
+        userAdapter.submitData(newList)
     }
 
     private fun setStatusBarColor(@ColorInt color: Int) {
