@@ -1,32 +1,37 @@
-package com.example.rechargemybl.app.adapter.ChildAdapter.childBillAdapter
+package com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferAdapter
-import com.example.rechargemybl.app.model.apiModel.Data
+import com.bumptech.glide.Glide
 import com.example.rechargemybl.app.model.apiModel.Rail
-import com.example.rechargemybl.databinding.ItemsViewBillsBinding
+import com.example.rechargemybl.databinding.PlanitemBinding
 
-class childBillAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val childDataSet = ArrayList<Data>()
+    private val childDataSet = ArrayList<Rail>()
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return PlanOfferAdapter.ChildViewHolder.create(parent)
+        return ChildViewHolder.create(parent)
 
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return childDataSet.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        when (holder) {
+            is ChildViewHolder -> childDataSet.getOrNull(position)?.let { holder.bind(it) }
+
+        }
     }
 
-    fun submitData(submittedItem: List<Data>?) {
+    fun submitData(submittedItem: List<Rail>?) {
         val oldData = ArrayList(childDataSet)
         childDataSet.clear()
         if (submittedItem != null) {
@@ -53,24 +58,43 @@ class childBillAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
         val diffResult = DiffUtil.calculateDiff(diffUtilCallBack)
         diffResult.dispatchUpdatesTo(this)
-
-
     }
 
-
-    class BillViewHolder(val viewBinding: ItemsViewBillsBinding) :
+    class ChildViewHolder(val viewBinding: PlanitemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
 
+
         companion object {
-            fun create(parent: ViewGroup): BillViewHolder {
+            fun create(parent: ViewGroup): ChildViewHolder {
+
                 val inflater = LayoutInflater.from(parent.context)
-                val view = ItemsViewBillsBinding.inflate(inflater, parent, false)
-                return BillViewHolder(view)
+                val view = PlanitemBinding.inflate(inflater, parent, false)
+                return ChildViewHolder(view)
             }
+
         }
 
-        fun bind(data : Data){
-//            val
+        fun bind(rail: Rail) {
+
+
+            viewBinding.typesOffer.text = rail.titleEn
+            if (rail.isHighlight == true) {
+                viewBinding.dot.visibility = View.VISIBLE
+            } else {
+                viewBinding.dot.visibility = View.INVISIBLE
+            }
+
+            if (rail.icon.isNullOrEmpty()) {
+                viewBinding.railsIcon.visibility = View.GONE
+            } else {
+                viewBinding.railsIcon.visibility = View.VISIBLE
+                Glide.with(viewBinding.railsIcon.context)
+                    .load(rail.icon)
+                    .into(viewBinding.railsIcon)
+
+            }
+
+
         }
     }
 }

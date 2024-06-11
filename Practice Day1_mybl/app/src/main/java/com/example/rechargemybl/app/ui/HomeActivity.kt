@@ -1,7 +1,6 @@
-package com.example.rechargemybl.app.view.home
+package com.example.rechargemybl.app.ui
 
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
@@ -14,16 +13,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rechargemybl.R
-import com.example.rechargemybl.app.Utility.Helpers
-import com.example.rechargemybl.app.adapter.mainAdapter.UserItemViewMargin
-import com.example.rechargemybl.app.adapter.mainAdapter.UserAdapter
-import com.example.rechargemybl.app.model.apiModel.AccountBalance
+import com.example.rechargemybl.app.ui.adapter.mainAdapter.UserItemViewMargin
+import com.example.rechargemybl.app.ui.adapter.mainAdapter.UserAdapter
 import com.example.rechargemybl.app.model.apiModel.Data
-import com.example.rechargemybl.app.model.apiModel.Loan
 
 import com.example.rechargemybl.databinding.ActivityMainBinding
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class HomeActivity : AppCompatActivity() {
 

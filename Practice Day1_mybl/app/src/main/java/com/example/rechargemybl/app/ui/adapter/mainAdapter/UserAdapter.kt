@@ -1,4 +1,4 @@
-package com.example.rechargemybl.app.adapter.mainAdapter
+package com.example.rechargemybl.app.ui.adapter.mainAdapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +17,8 @@ import com.example.rechargemybl.app.Utility.Helpers.TYPE_LIVE_RADIO
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_GENERIC_RAIL
 import com.example.rechargemybl.app.Utility.Helpers.getBalanceTime
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
-import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
-import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferAdapter
+import com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
+import com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer.PlanOfferAdapter
 import com.example.rechargemybl.app.model.apiModel.AccountBalance
 import com.example.rechargemybl.app.model.apiModel.Data
 import com.example.rechargemybl.app.model.apiModel.Loan

@@ -1,12 +1,9 @@
-package com.example.rechargemybl.app.view.home
+package com.example.rechargemybl.app.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rechargemybl.app.model.apiModel.Balance
-import com.example.rechargemybl.app.model.apiModel.BaseResponse
 import com.example.rechargemybl.app.model.apiModel.Data
 import com.example.rechargemybl.app.network.ApiClient
 import com.example.rechargemybl.app.network.HomeApi.HomeApi

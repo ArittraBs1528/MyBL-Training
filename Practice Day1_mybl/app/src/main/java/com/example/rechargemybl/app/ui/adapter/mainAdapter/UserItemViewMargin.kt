@@ -1,4 +1,4 @@
-package com.example.rechargemybl.app.adapter.mainAdapter
+package com.example.rechargemybl.app.ui.adapter.mainAdapter
 
 import android.graphics.Rect
 import android.view.View

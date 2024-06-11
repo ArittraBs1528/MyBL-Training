@@ -1,4 +1,4 @@
-package com.example.rechargemybl.app.adapter.ChildAdapter.planOffer
+package com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer
 
 import android.graphics.Rect
 import android.view.View

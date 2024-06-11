@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#E6DFDF"
     android:layoutDirection="ltr"
-    tools:context=".app.view.home.HomeActivity">
+    tools:context=".app.ui.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
