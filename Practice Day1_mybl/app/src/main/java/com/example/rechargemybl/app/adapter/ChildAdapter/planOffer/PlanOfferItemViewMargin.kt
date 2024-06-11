@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class PlanOfferItemViewMargin : RecyclerView.ItemDecoration() {
 
-    var itemDecorationCount = 0;
+
     override fun getItemOffsets(
         outRect: Rect,
         view: View,

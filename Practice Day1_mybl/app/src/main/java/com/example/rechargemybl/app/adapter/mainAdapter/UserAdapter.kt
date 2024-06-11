@@ -15,6 +15,7 @@ import com.example.rechargemybl.app.Utility.Helpers.TYPE_BILLS
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_LIVE_RADIO
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_PLAN_OFFER
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
+import com.example.rechargemybl.app.adapter.ChildAdapter.childBillAdapter.childBillAdapter
 import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
 import com.example.rechargemybl.app.adapter.ChildAdapter.planOffer.PlanOfferAdapter
 import com.example.rechargemybl.app.model.apiModel.AccountBalance
@@ -22,7 +23,8 @@ import com.example.rechargemybl.app.model.apiModel.Data
 import com.example.rechargemybl.app.model.apiModel.Loan
 import com.example.rechargemybl.app.model.apiModel.Rail
 import com.example.rechargemybl.app.model.dummy.BillDao
-import com.example.rechargemybl.databinding.BillsItemsViewBinding
+import com.example.rechargemybl.databinding.BillsBinding
+
 import com.example.rechargemybl.databinding.ItemViewBinding
 import com.example.rechargemybl.databinding.PlanandofferBinding
 import java.text.SimpleDateFormat
@@ -32,6 +34,7 @@ import java.util.Locale
 class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dataSet = ArrayList<Data>()
+    private var lastThreeListDataSet: List<Data> = ArrayList()
 
     override fun getItemCount(): Int {
         return dataSet.size
@@ -54,16 +57,18 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 return BalanceViewHolder.create(parent)
             }
 
-            TYPE_BILLS -> {
-                return BillViewHolder.create(parent)
-            }
-
             TYPE_PLAN_OFFER -> {
                 return PlanOfferViewHolder.create(parent)
             }
-            TYPE_LIVE_RADIO ->{
+
+            TYPE_BILLS -> {
                 return BillViewHolder.create(parent)
             }
+//            TYPE_LIVE_RADIO -> {
+//                return BillViewHolder.create(parent)
+//            }
+
+
         }
 
         return BalanceViewHolder.create(parent)
@@ -80,9 +85,13 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
             }
 
-//            is BillViewHolder -> holder.bind(dataSet.getOrNull(position)?.billDao)
+            is BillViewHolder -> holder.bind(lastThreeListDataSet)
             is PlanOfferViewHolder -> holder.bind(dataSet.getOrNull(position)?.rails)
         }
+    }
+
+    fun getLastThreeList(lastThreeList: List<Data>) {
+        lastThreeListDataSet = lastThreeList
     }
 
     fun submitData(people: List<Data>) {
@@ -236,60 +245,69 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
 
-    class BillViewHolder(private val viewBinding: BillsItemsViewBinding) :
+    class BillViewHolder(private val viewBinding: BillsBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
+
+        private val marginLayout = PlanOfferItemViewMargin()
+        private val layoutManager =
+            LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        private val billAdapter = childBillAdapter()
 
         companion object {
             fun create(parent: ViewGroup): BillViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val view = BillsItemsViewBinding.inflate(inflater, parent, false)
+                val view = BillsBinding.inflate(inflater, parent, false)
                 return BillViewHolder(view)
             }
         }
 
+        init {
+            viewBinding.billsRCV.layoutManager = layoutManager
+            viewBinding.billsRCV.addItemDecoration(marginLayout)
+            viewBinding.billsRCV.adapter = billAdapter
+        }
 
-        fun bind(billsDao: BillDao?) {
+        fun bind(billsDao: List<Data>) {
 
-            if (billsDao != null) {
-                billsDao.image?.let { viewBinding.cartInImage.setImageResource(it) }
-                billsDao.sellAll?.let { viewBinding.seeAll.text = it }
-                billsDao.sponsorName?.let { viewBinding.paystation.text = it }
-                billsDao.bills?.let { viewBinding.bills.text = it }
-                billsDao.poweredBy?.let {
-                    viewBinding.soujonno.text =
-                        viewBinding.root.context.getString(R.string.soujonno, it)
-                }
+            billAdapter.submitData(billsDao)
 
-            }
+            //                billsDao.image?.let { viewBinding.cartInImage.setImageResource(it) }
+//                billsDao.sellAll?.let { viewBinding.seeAll.text = it }
+//                billsDao.sponsorName?.let { viewBinding.paystation.text = it }
+//                billsDao.bills?.let { viewBinding.bills.text = it }
+//                billsDao.poweredBy?.let {
+//                    viewBinding.soujonno.text =
+//                        viewBinding.root.context.getString(R.string.soujonno, it)
 
+        }
+
+    }
+}
+
+class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
+    RecyclerView.ViewHolder(viewBinding.root) {
+    private val marginLayout = PlanOfferItemViewMargin()
+    private val layoutManager =
+        LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+    private val planOfferAdapter = PlanOfferAdapter()
+
+    companion object {
+        fun create(parent: ViewGroup): PlanOfferViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val view = PlanandofferBinding.inflate(inflater, parent, false)
+            return PlanOfferViewHolder(view)
         }
     }
 
-    class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
-        RecyclerView.ViewHolder(viewBinding.root) {
-        private val marginLayout = PlanOfferItemViewMargin()
-        private val layoutManager =
-            LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
-        private val planOfferAdapter = PlanOfferAdapter()
+    init {
+        viewBinding.planRcv.layoutManager = layoutManager
+        viewBinding.planRcv.addItemDecoration(marginLayout)
+        viewBinding.planRcv.adapter = planOfferAdapter
+    }
 
-        companion object {
-            fun create(parent: ViewGroup): PlanOfferViewHolder {
-                val inflater = LayoutInflater.from(parent.context)
-                val view = PlanandofferBinding.inflate(inflater, parent, false)
-                return PlanOfferViewHolder(view)
-            }
-        }
-
-        init {
-            viewBinding.planRcv.layoutManager = layoutManager
-            viewBinding.planRcv.addItemDecoration(marginLayout)
-            viewBinding.planRcv.adapter = planOfferAdapter
-        }
-
-        fun bind(planOfferList: List<Rail>?) {
-            if (planOfferList != null) {
-                planOfferAdapter.submitData(planOfferList)
-            }
+    fun bind(planOfferList: List<Rail>?) {
+        if (planOfferList != null) {
+            planOfferAdapter.submitData(planOfferList)
         }
     }
 }

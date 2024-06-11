@@ -13,5 +13,7 @@ data class Data(
     @SerializedName("is_title_show") val isTitleShow: Boolean,
     @SerializedName("rails") val rails: List<Rail>,
     @SerializedName("title_bn") val titleBn: String,
-    @SerializedName("title_en") val titleEn: String
+    @SerializedName("title_en") val titleEn: String,
+    val lastThree: List<Data>? = null
+
 )

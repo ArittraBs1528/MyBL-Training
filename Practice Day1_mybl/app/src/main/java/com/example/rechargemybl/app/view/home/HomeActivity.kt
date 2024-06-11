@@ -56,7 +56,10 @@ class HomeActivity : AppCompatActivity() {
 
         //balance section  - observe viewModel BalanceData
         viewModel.data.observe(this) { data ->
-            prepareUserListView(data)
+
+            val lastThree = data.takeLast(3)
+            data.dropLast(2)
+            prepareUserListView(data,lastThree)
         }
 
 
@@ -79,14 +82,17 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun updateData(list: List<Data>) {
+
         userAdapter.submitData(list)
     }
 
-    private fun prepareUserListView(list: List<Data>) {
+    private fun prepareUserListView(list: List<Data>, lastThree: List<Data>) {
         binding.peopleList.layoutManager = layoutManager
         binding.peopleList.addItemDecoration(itemDecoration)
         binding.peopleList.adapter = userAdapter
         updateData(list)
+        userAdapter.getLastThreeList(lastThree)
+
     }
 
     private fun setStatusBarColor(@ColorInt color: Int) {
