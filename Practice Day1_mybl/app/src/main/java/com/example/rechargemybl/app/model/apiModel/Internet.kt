@@ -1,8 +1,10 @@
 package com.example.rechargemybl.app.model.apiModel
 
+import com.google.gson.annotations.SerializedName
+
 data class Internet(
-    val remaining: Double?=null,
-    val threshold: Int?=null,
-    val total: Double?=null,
-    val unit: String?=null
+    @SerializedName("remaining") val remaining: Double? = null,
+    @SerializedName("threshold") val threshold: Int? = null,
+    @SerializedName("total") val total: Double? = null,
+    @SerializedName("unit") val unit: String? = null
 )

@@ -1,8 +1,10 @@
 package com.example.rechargemybl.app.model.apiModel
 
+import com.google.gson.annotations.SerializedName
+
 data class Minutes(
-    val remaining: Int?=null,
-    val threshold: Int?=null,
-    val total: Int?=null,
-    val unit: String?=null
+    @SerializedName("remaining") val remaining: Int? = null,
+    @SerializedName("threshold") val threshold: Int? = null,
+    @SerializedName("total") val total: Int? = null,
+    @SerializedName("unit") val unit: String? = null
 )
