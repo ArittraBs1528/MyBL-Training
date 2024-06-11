@@ -8,10 +8,8 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.view.View
-import com.example.rechargemybl.app.adapter.rcvAdapter
-import com.example.rechargemybl.app.model.UserDao
-import com.example.rechargemybl.databinding.ActivityMainBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 object Helpers {
 
@@ -27,6 +25,7 @@ object Helpers {
     fun highlightBoldSubstring(initialText: String, limit: Int): SpannableString {
         return SpannableString(initialText).apply {
             setSpan(
+
                 StyleSpan(Typeface.BOLD),
                 limit,
                 initialText.length,
@@ -59,13 +58,27 @@ object Helpers {
         }
     }
 
-    const val TYPE_BALANCE = "TYPE_BALANCE"
-    const val TYPE_BILLS = "TYPE_BILLS"
-    const val TYPE_PLAN_OFFER="TYPE_PLAN_OFFER"
+    fun getBalanceTime(serverTime: String): String{
+        try {
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val date = sdf.parse(serverTime)
+            return SimpleDateFormat("d MMMM, yyyy", Locale.getDefault()).format(date)
+        }catch (e: Exception){
+            return ""
+        }
+    }
+
+    const val TYPE_BALANCE = "balance_detail"
+    const val TYPE_GENERIC_RAIL = "generic_rail"
+    const val TYPE_AUDIOBOOK = "audiobook"
+    const val TYPE_LIVE_RADIO = "live_radio"
+
 
     val typeMap = HashMap<String, Int>().apply {
         put(TYPE_BALANCE, 0)
-        put(TYPE_BILLS, 1)
-        put(TYPE_PLAN_OFFER, 2)
+        put(TYPE_GENERIC_RAIL, 1)
+        put(TYPE_AUDIOBOOK, 2)
+        put(TYPE_LIVE_RADIO, 3)
+
     }
 }

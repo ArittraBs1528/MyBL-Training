@@ -258,7 +258,7 @@
             app:srcCompat="@drawable/intenet_icon" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/balance_null"
+            android:id="@+id/internetBalanceNull"
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:visibility="gone"
@@ -314,6 +314,18 @@
             app:shapeAppearanceOverlay="@style/circleImageView"
             app:srcCompat="@drawable/call_icon" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/minute_null"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/shapeableImageView2"
+            app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
+            app:layout_constraintStart_toEndOf="@+id/shapeableImageView2"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView2"
+            app:shapeAppearanceOverlay="@style/shapeBackground"
+            app:srcCompat="@drawable/warning" />
+
         <TextView
             android:id="@+id/minute_amount"
             android:layout_width="wrap_content"
@@ -360,6 +372,18 @@
             app:layout_constraintTop_toBottomOf="@+id/shapeableImageView2"
             app:shapeAppearanceOverlay="@style/circleImageView"
             app:srcCompat="@drawable/msg_icon" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/msg_null"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/shapeableImageView3"
+            app:layout_constraintEnd_toEndOf="@+id/shapeableImageView3"
+            app:layout_constraintStart_toEndOf="@+id/shapeableImageView3"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView3"
+            app:shapeAppearanceOverlay="@style/shapeBackground"
+            app:srcCompat="@drawable/warning" />
 
 
         <TextView
