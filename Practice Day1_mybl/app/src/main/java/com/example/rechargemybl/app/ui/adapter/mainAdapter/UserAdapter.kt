@@ -328,35 +328,35 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     }
 
+    class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
+        private val marginLayout = PlanOfferItemViewMargin()
+        private val layoutManager =
+            LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        private val planOfferAdapter = PlanOfferAdapter()
 
-}
+        companion object {
+            fun create(parent: ViewGroup): PlanOfferViewHolder {
+                val inflater = LayoutInflater.from(parent.context)
+                val view = PlanandofferBinding.inflate(inflater, parent, false)
+                return PlanOfferViewHolder(view)
+            }
+        }
 
-class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
-    RecyclerView.ViewHolder(viewBinding.root) {
-    private val marginLayout = PlanOfferItemViewMargin()
-    private val layoutManager =
-        LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
-    private val planOfferAdapter = PlanOfferAdapter()
+        init {
+            viewBinding.planRcv.layoutManager = layoutManager
+            viewBinding.planRcv.addItemDecoration(marginLayout)
+            viewBinding.planRcv.adapter = planOfferAdapter
+        }
 
-    companion object {
-        fun create(parent: ViewGroup): PlanOfferViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val view = PlanandofferBinding.inflate(inflater, parent, false)
-            return PlanOfferViewHolder(view)
+        fun bind(planOfferList: List<Rail>?) {
+
+
+            if (planOfferList != null) {
+                planOfferAdapter.submitData(planOfferList)
+            }
         }
     }
-
-    init {
-        viewBinding.planRcv.layoutManager = layoutManager
-        viewBinding.planRcv.addItemDecoration(marginLayout)
-        viewBinding.planRcv.adapter = planOfferAdapter
-    }
-
-    fun bind(planOfferList: List<Rail>?) {
-
-
-        if (planOfferList != null) {
-            planOfferAdapter.submitData(planOfferList)
-        }
-    }
 }
+
+
