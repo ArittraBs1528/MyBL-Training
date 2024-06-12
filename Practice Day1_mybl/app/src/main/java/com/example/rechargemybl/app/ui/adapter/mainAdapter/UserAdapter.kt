@@ -75,7 +75,8 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when (holder) {
             is BalanceViewHolder -> dataSet.getOrNull(position)?.data?.let {
                 holder.bind(
-                        (it as? Map<String, Any?>)?.toObject<BalanceCard>()
+                        (it as? Map<String, Any?>)?.toObject<BalanceCard>(),
+
 
                 )
             }
@@ -85,7 +86,8 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is PlanOfferViewHolder -> holder.bind(dataSet.getOrNull(position)?.rails)
             is GenericSliderViewHolder -> dataSet.getOrNull(position)?.data?.let{
                 holder.bind(
-                    (it as? ArrayList<Map<String,Any>>)?.map{it.toObject<SlideData>()}
+                    (it as? ArrayList<Map<String,Any>>)?.map{it.toObject<SlideData>()},
+                    dataSet.getOrNull(position)?.icon
                 )
             }
         }

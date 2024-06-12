@@ -12,15 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingVertical="13dp">
+        android:paddingTop="6dp"
+        android:paddingHorizontal="6dp"
+        android:paddingBottom="10dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/sobDekhun"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toTopOf="@+id/sobDekhun"
             app:srcCompat="@drawable/img1" />
 
@@ -30,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:text="@string/planAndOffer"
+            android:layout_marginTop="10dp"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/icon"
@@ -60,6 +64,7 @@
             android:id="@+id/genericRcv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
