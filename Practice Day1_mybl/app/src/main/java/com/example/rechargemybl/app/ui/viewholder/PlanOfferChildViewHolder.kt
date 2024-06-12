@@ -8,16 +8,16 @@ import com.bumptech.glide.Glide
 import com.example.rechargemybl.app.model.apiModel.Rail
 import com.example.rechargemybl.databinding.PlanitemBinding
 
-class ChildViewHolder(val viewBinding: PlanitemBinding) :
+class PlanOfferChildViewHolder(val viewBinding: PlanitemBinding) :
     RecyclerView.ViewHolder(viewBinding.root) {
 
 
     companion object {
-        fun create(parent: ViewGroup): ChildViewHolder {
+        fun create(parent: ViewGroup): PlanOfferChildViewHolder {
 
             val inflater = LayoutInflater.from(parent.context)
             val view = PlanitemBinding.inflate(inflater, parent, false)
-            return ChildViewHolder(view)
+            return PlanOfferChildViewHolder(view)
         }
 
     }

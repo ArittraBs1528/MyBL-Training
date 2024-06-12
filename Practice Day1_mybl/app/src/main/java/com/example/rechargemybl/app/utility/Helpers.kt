@@ -22,7 +22,12 @@ object Helpers {
         return Pair("0", "0")
     }
 
-    fun highlightBoldSubstring(initialText: String, limit: Int): SpannableString {
+    fun highlightBoldSubstring(initialText: String, limit: Int): SpannableString? {
+
+
+        if(initialText.isEmpty()){
+            return null
+        }
         return SpannableString(initialText).apply {
             setSpan(
 
@@ -36,10 +41,11 @@ object Helpers {
 
 
     @SuppressLint("DefaultLocale")
-    fun formatCurrencyBalance(initialBalance: String): SpannableString {
+    fun formatCurrencyBalance(initialBalance: Double): SpannableString? {
 
-        val convertedBalance = initialBalance.toDouble()
+        if(initialBalance.isNaN()) return null
 
+        val convertedBalance = initialBalance
 
         val formattedBalance = when {
             convertedBalance % 1.0 == 0.0 -> String.format("%.0f", convertedBalance)
@@ -72,6 +78,7 @@ object Helpers {
     const val TYPE_GENERIC_RAIL = "generic_rail"
     const val TYPE_AUDIOBOOK = "audiobook"
     const val TYPE_LIVE_RADIO = "live_radio"
+    const val TYPE_GENERIC_SLIDER = "generic_slider"
 
 
     val typeMap = HashMap<String, Int>().apply {
@@ -79,6 +86,7 @@ object Helpers {
         put(TYPE_GENERIC_RAIL, 1)
         put(TYPE_AUDIOBOOK, 2)
         put(TYPE_LIVE_RADIO, 3)
+        put(TYPE_GENERIC_SLIDER, 4)
 
     }
 }

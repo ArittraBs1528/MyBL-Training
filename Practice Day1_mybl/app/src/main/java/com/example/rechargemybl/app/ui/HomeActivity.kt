@@ -79,8 +79,7 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun updateData(list: List<Data>) {
-        val newList = list.filter { it.isEligible }
-        userAdapter.submitData(newList)
+        userAdapter.submitData(list)
     }
 
     private fun setStatusBarColor(@ColorInt color: Int) {

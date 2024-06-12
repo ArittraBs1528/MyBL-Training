@@ -6,5 +6,6 @@ data class Balance(
     @SerializedName("amount") val amount: Double? = null,
     @SerializedName("expires_in") val expiresIn: String? = null,
     @SerializedName("loan") val loan: Loan? = null,
-    @SerializedName("unit") val unit: String? = null
+    @SerializedName("unit") val unit: String? = null,
+    @SerializedName("loan_amount") val loanAmount : LoanAmount?=null
 )

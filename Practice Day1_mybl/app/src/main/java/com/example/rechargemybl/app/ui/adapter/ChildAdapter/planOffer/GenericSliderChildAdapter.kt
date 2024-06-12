@@ -3,32 +3,20 @@ package com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rechargemybl.app.model.apiModel.Rail
-import com.example.rechargemybl.app.ui.viewholder.ChildViewHolder
+import com.example.rechargemybl.app.model.apiModel.SlideData
 
-class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+import com.example.rechargemybl.app.ui.viewholder.GenericSliderChildViewHolder
 
-    private val childDataSet = ArrayList<Rail>()
-
-
+class GenericSliderChildAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    private val childDataSet = ArrayList<SlideData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        return ChildViewHolder.create(parent)
-
+        return GenericSliderChildViewHolder.create(parent)
     }
 
     override fun getItemCount(): Int {
         return childDataSet.size
     }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is ChildViewHolder -> childDataSet.getOrNull(position)?.let { holder.bind(it) }
-
-        }
-    }
-
-    fun submitData(submittedItem: List<Rail>?) {
+    fun submitData(submittedItem: List<SlideData>?) {
         val oldData = ArrayList(childDataSet)
         childDataSet.clear()
         if (submittedItem != null) {
@@ -57,4 +45,11 @@ class PlanOfferAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
 
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is GenericSliderChildViewHolder -> childDataSet.getOrNull(position)?.let { holder.bind(it) }
+
+        }
+    }
 }

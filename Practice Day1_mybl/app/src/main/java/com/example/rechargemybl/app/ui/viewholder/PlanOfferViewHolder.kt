@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.app.model.apiModel.Rail
-import com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer.PlanOfferAdapter
+import com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer.PlanOfferChildAdapter
 import com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
 import com.example.rechargemybl.databinding.PlanandofferBinding
 
@@ -14,7 +14,7 @@ class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
     private val marginLayout = PlanOfferItemViewMargin()
     private val layoutManager =
         LinearLayoutManager(viewBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
-    private val planOfferAdapter = PlanOfferAdapter()
+    private val planOfferAdapter = PlanOfferChildAdapter()
 
     companion object {
         fun create(parent: ViewGroup): PlanOfferViewHolder {

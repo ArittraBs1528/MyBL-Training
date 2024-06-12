@@ -2,7 +2,7 @@ package com.example.rechargemybl.app.model.apiModel
 
 import com.google.gson.annotations.SerializedName
 
-data class AccountBalance(
+data class BalanceCard(
     @SerializedName("sms") val sms: Sms? = null,
     @SerializedName("balance") val balance: Balance? = null,
     @SerializedName("pn_id") val pnId: String? = null,

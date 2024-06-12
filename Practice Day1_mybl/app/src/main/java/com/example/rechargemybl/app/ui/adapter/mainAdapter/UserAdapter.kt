@@ -9,12 +9,17 @@ import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_AUDIOBOOK
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_LIVE_RADIO
 import com.example.rechargemybl.app.Utility.Helpers.TYPE_GENERIC_RAIL
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_GENERIC_SLIDER
 import com.example.rechargemybl.app.Utility.Helpers.typeMap
 import com.example.rechargemybl.app.model.apiModel.Data
+import com.example.rechargemybl.app.model.apiModel.BalanceCard
+import com.example.rechargemybl.app.model.apiModel.SlideData
 import com.example.rechargemybl.app.ui.viewholder.AudioBookViewHolder
 import com.example.rechargemybl.app.ui.viewholder.BalanceViewHolder
+import com.example.rechargemybl.app.ui.viewholder.GenericSliderViewHolder
 import com.example.rechargemybl.app.ui.viewholder.LiveRadioViewHolder
 import com.example.rechargemybl.app.ui.viewholder.PlanOfferViewHolder
+import com.example.rechargemybl.app.utility.toObject
 
 
 class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -54,6 +59,10 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             TYPE_LIVE_RADIO -> {
                 return LiveRadioViewHolder.create(parent)
             }
+            TYPE_GENERIC_SLIDER->{
+                return GenericSliderViewHolder.create(parent)
+            }
+
         }
 
         return BalanceViewHolder.create(parent)
@@ -64,15 +73,21 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         Log.wtf("aritra", "onBindViewHolder: $position")
 
         when (holder) {
-            is BalanceViewHolder -> dataSet.getOrNull(position)?.accountBalance?.let {
+            is BalanceViewHolder -> dataSet.getOrNull(position)?.data?.let {
                 holder.bind(
-                    it
+                        (it as? Map<String, Any?>)?.toObject<BalanceCard>()
+
                 )
             }
 
             is AudioBookViewHolder -> dataSet.getOrNull(position)?.let { holder.bind(it) }
             is LiveRadioViewHolder -> dataSet.getOrNull(position)?.let { holder.bind(it) }
             is PlanOfferViewHolder -> holder.bind(dataSet.getOrNull(position)?.rails)
+            is GenericSliderViewHolder -> dataSet.getOrNull(position)?.data?.let{
+                holder.bind(
+                    (it as? ArrayList<Map<String,Any>>)?.map{it.toObject<SlideData>()}
+                )
+            }
         }
     }
 

@@ -1,12 +1,13 @@
 package com.example.rechargemybl.app.ui.viewholder
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
-import com.example.rechargemybl.app.model.apiModel.AccountBalance
+import com.example.rechargemybl.app.model.apiModel.BalanceCard
 import com.example.rechargemybl.app.model.apiModel.Loan
 import com.example.rechargemybl.databinding.ItemViewBinding
 import java.util.Locale
@@ -23,18 +24,24 @@ class BalanceViewHolder(private val viewBinding: ItemViewBinding) :
     }
 
 
-    fun bind(accountBalance: AccountBalance) {
+    fun bind(accountBalance: BalanceCard?) {
+
+        Log.wtf("TAG", "bindLheo: ${accountBalance}")
 
         //  --- handle left Tk Section
-        val userBalanceData = accountBalance.balance
+        val userBalanceData = accountBalance?.balance
 
         val formattedDate = userBalanceData?.expiresIn?.let {
             "Valid till ${Helpers.getBalanceTime(it)}"
         } ?: ""
 
-        viewBinding.validText.text = Helpers.highlightBoldSubstring(formattedDate, 11)
-        val balanceTk = userBalanceData?.amount.toString()
-        viewBinding.balance.text = Helpers.formatCurrencyBalance(balanceTk)
+
+
+        viewBinding.validText.text = Helpers.highlightBoldSubstring(formattedDate, 11)?: "Valid till"
+
+        userBalanceData?.amount?.let {
+            viewBinding.balance.text = Helpers.formatCurrencyBalance(it)?:"Balance"
+        }
 
 
         //handle recharge button section
@@ -54,31 +61,45 @@ class BalanceViewHolder(private val viewBinding: ItemViewBinding) :
         // --- handle right portion --- //
 
         //handle internet section
-        val internetBalance = accountBalance.internet
+        val internetBalance = accountBalance?.internet
         val internetAmountInGB = (internetBalance?.total?.div(1024.0))
         if (internetAmountInGB != null) {
             configureInternetDisplay(viewBinding, internetAmountInGB)
         }
-        if (accountBalance.internet?.remaining!! < accountBalance.internet.threshold!!) {
+
+
+        if(accountBalance!=null){
+            if (accountBalance?.internet?.remaining!! < accountBalance.internet.threshold!!) {
+                viewBinding.internetBalanceNull.visibility = View.VISIBLE
+            }
+        }else
             viewBinding.internetBalanceNull.visibility = View.VISIBLE
-        }
+
 
 
         //handle minute section
-        val minuteAmount = accountBalance.minutes?.total.toString()
+        val minuteAmount = accountBalance?.minutes?.total.toString()
         viewBinding.minuteAmount.text = minuteAmount
-        viewBinding.minSec.text = accountBalance.minutes?.unit.toString()
-        if (accountBalance.minutes?.remaining!! < accountBalance.minutes.threshold!!) {
-            viewBinding.minuteNull.visibility = View.VISIBLE
+        if (accountBalance != null) {
+            viewBinding.minSec.text = accountBalance.minutes?.unit.toString()
+        }
+        if (accountBalance != null) {
+            if (accountBalance.minutes?.remaining!! < accountBalance.minutes.threshold!!) {
+                viewBinding.minuteNull.visibility = View.VISIBLE
+            }
         }
 
 
         //handle sms section
-        if (accountBalance.sms?.remaining!! < accountBalance.minutes.threshold) {
-            viewBinding.msgNull.visibility = View.VISIBLE
+        if (accountBalance != null) {
+            if (accountBalance.sms?.remaining!! < accountBalance.minutes?.threshold!!) {
+                viewBinding.msgNull.visibility = View.VISIBLE
+            }
         }
-        val smsAmount = accountBalance.sms
-        viewBinding.smsAmount.text = smsAmount.total.toString()
+        val smsAmount = accountBalance?.sms
+        if (smsAmount != null) {
+            viewBinding.smsAmount.text = smsAmount.total.toString()
+        }
 
         // --- end handle right portion --- //
 

@@ -5,7 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface HomeApi {
-    @GET("/2bb453b792f2d858b606")
+    @GET("949326c71065be4436c1")
     suspend fun getHomeInfo(): Response<BaseResponse>
 
 }

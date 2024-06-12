@@ -32,7 +32,7 @@ class LiveRadioViewHolder(private val viewBinding: ItemsViewBillsBinding) :
         viewBinding.seeAll.text = bills.cta?.nameBn
         viewBinding.titles.text = bills.titleBn
 
-        if (bills.isTitleShow) {
+        if (bills.isTitleShow == true) {
             viewBinding.titles.visibility = View.VISIBLE
             viewBinding.icon.visibility = View.VISIBLE
         } else {

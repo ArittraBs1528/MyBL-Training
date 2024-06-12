@@ -29,7 +29,7 @@ class AudioBookViewHolder(private val viewBinding: ItemsViewBillsBinding) :
 
 
         viewBinding.seeAll.text = bills.cta?.nameBn
-        if (bills.isTitleShow) {
+        if (bills.isTitleShow == true) {
             viewBinding.titles.text = bills.titleBn
             Glide.with(viewBinding.icon.context)
                 .load(bills.icon).into(viewBinding.icon)

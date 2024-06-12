@@ -1,9 +1,12 @@
 package com.example.rechargemybl.app.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
+import com.example.rechargemybl.app.model.apiModel.BalanceCard
 import com.example.rechargemybl.app.model.apiModel.Data
 import com.example.rechargemybl.app.network.ApiClient
 import com.example.rechargemybl.app.network.HomeApi.HomeApi
@@ -26,9 +29,10 @@ class HomeViewModel : ViewModel() {
 
 
     fun getAllHomeData() = viewModelScope.launch {
-        _data.value = homeRepository.getHomeData()
 
-//        Log.wtf("TAG", "getAllHomeData: ${response.body()}")
+        _data.value = homeRepository.getHomeData()?.filter { it.isEligible == true }
+
+        Log.wtf("TAG", "getAllHomeData: ${_data.value}")
 //        println("Our Data  ${response.body()}")
 
     }
