@@ -32,14 +32,14 @@ class PlanOfferChildViewHolder(val viewBinding: PlanitemBinding) :
             viewBinding.dot.visibility = View.INVISIBLE
         }
 
+        Glide.with(viewBinding.railsIcon.context)
+            .load(rail.icon)
+            .into(viewBinding.railsIcon)
+
         if (rail.icon.isNullOrEmpty()) {
             viewBinding.railsIcon.visibility = View.GONE
         } else {
             viewBinding.railsIcon.visibility = View.VISIBLE
-            Glide.with(viewBinding.railsIcon.context)
-                .load(rail.icon)
-                .into(viewBinding.railsIcon)
-
         }
 
 

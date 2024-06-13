@@ -28,12 +28,10 @@ class PlanOfferChildAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    fun submitData(submittedItem: List<Rail>?) {
+    fun submitData(submittedItem: List<Rail>) {
         val oldData = ArrayList(childDataSet)
         childDataSet.clear()
-        if (submittedItem != null) {
-            childDataSet.addAll(submittedItem)
-        }
+        childDataSet.addAll(submittedItem)
 
         val diffUtilCallBack = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int {

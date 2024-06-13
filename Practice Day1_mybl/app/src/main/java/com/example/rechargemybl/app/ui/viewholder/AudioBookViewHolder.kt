@@ -20,24 +20,30 @@ class AudioBookViewHolder(private val viewBinding: ItemsViewBillsBinding) :
     }
 
 
-    fun bind(bills: Data) {
+    fun bind(audiobookData: Data) {
 
         Glide.with(viewBinding.cartInImage.context)
-            .load(bills.banner)
+            .load(audiobookData.banner)
             .into(viewBinding.cartInImage)
 
+        viewBinding.seeAll.text = audiobookData.cta?.nameBn
+        viewBinding.titles.text = audiobookData.titleBn
+        Glide.with(viewBinding.icon.context)
+            .load(audiobookData.icon).into(viewBinding.icon)
 
-
-        viewBinding.seeAll.text = bills.cta?.nameBn
-        if (bills.isTitleShow == true) {
-            viewBinding.titles.text = bills.titleBn
-            Glide.with(viewBinding.icon.context)
-                .load(bills.icon).into(viewBinding.icon)
+        if (audiobookData.isTitleShow == true) {
+            viewBinding.titles.visibility = View.VISIBLE
+            viewBinding.icon.visibility = View.VISIBLE
+        }else{
+            viewBinding.titles.visibility = View.GONE
+            viewBinding.icon.visibility = View.GONE
         }
 
 
-        if (bills.cta == null) {
-            viewBinding.grp.visibility = View.GONE
+        if (audiobookData.cta == null) {
+            viewBinding.ctaGrp.visibility = View.GONE
+        }else{
+            viewBinding.ctaGrp.visibility = View.VISIBLE
         }
 
 

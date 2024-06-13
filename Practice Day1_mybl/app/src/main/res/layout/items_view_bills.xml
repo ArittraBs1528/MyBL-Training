@@ -113,7 +113,7 @@
             app:constraint_referenced_ids="icon,titles,seeAll,arrow" />
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/grp"
+            android:id="@+id/ctaGrpBills"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="seeAll,arrow"/>

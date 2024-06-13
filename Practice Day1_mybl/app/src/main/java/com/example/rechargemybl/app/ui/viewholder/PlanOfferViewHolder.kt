@@ -9,7 +9,7 @@ import com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer.PlanOfferC
 import com.example.rechargemybl.app.ui.adapter.ChildAdapter.planOffer.PlanOfferItemViewMargin
 import com.example.rechargemybl.databinding.PlanandofferBinding
 
-class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
+class PlanOfferViewHolder(viewBinding: PlanandofferBinding) :
     RecyclerView.ViewHolder(viewBinding.root) {
     private val marginLayout = PlanOfferItemViewMargin()
     private val layoutManager =
@@ -31,9 +31,7 @@ class PlanOfferViewHolder(private val viewBinding: PlanandofferBinding) :
     }
 
     fun bind(planOfferList: List<Rail>?) {
-
-
-        if (planOfferList != null) {
+        if (!planOfferList.isNullOrEmpty()) {
             planOfferAdapter.submitData(planOfferList)
         }
     }

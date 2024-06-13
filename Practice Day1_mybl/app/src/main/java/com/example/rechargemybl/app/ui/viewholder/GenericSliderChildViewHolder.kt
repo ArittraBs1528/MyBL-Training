@@ -3,6 +3,7 @@ package com.example.rechargemybl.app.ui.viewholder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.rechargemybl.app.model.apiModel.SlideData
 import com.example.rechargemybl.databinding.GenericItemViewBinding
 import com.example.rechargemybl.databinding.PlanitemBinding
@@ -21,7 +22,14 @@ class GenericSliderChildViewHolder(val viewBinding: GenericItemViewBinding) :
 
     }
     fun bind(items: SlideData) {
-        viewBinding.subTitle.text = items.banner_text_bn
+
+        Glide.with(viewBinding.img.context)
+            .load(items.image_url)
+            .into(viewBinding.img)
+
+        viewBinding.subTitle.text = items.subtitle_text_en
+        viewBinding.title.text = items.title?:"No Title"
+
     }
 
 }

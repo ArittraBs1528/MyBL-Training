@@ -8,7 +8,7 @@ data class SlideData(
     val slider_id: Int?=null,
     val banner_text_bn: String?=null,
     val banner_text_en: String?=null,
-    val subtitile_text_bn: String?=null,
-    val subtitile_text_en: String?=null
+    val subtitle_text_bn: String?=null,
+    val subtitle_text_en: String?=null
 
 )
