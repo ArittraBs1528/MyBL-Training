@@ -21,11 +21,11 @@ class GenericSliderItemMargin : RecyclerView.ItemDecoration() {
         val itemCount = state.itemCount
 
         if (position == 0) {
-            outRect.left = 16
+            outRect.left = 30
         } else if (position == itemCount - 1) {
-            outRect.left = 25
-            outRect.right = 16
-        } else outRect.left = 25
+            outRect.left = 22
+            outRect.right = 30
+        } else outRect.left = 22
 
     }
 }

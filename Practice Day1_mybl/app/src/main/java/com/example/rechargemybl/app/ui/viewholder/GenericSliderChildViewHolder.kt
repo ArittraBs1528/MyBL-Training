@@ -29,7 +29,7 @@ class GenericSliderChildViewHolder(val viewBinding: GenericItemViewBinding) :
             .into(viewBinding.img)
 
         viewBinding.subTitle.text = items.subtitle_text_en?:itemView.context.getString(R.string.NoTitile)
-        viewBinding.title.text = items.title?:itemView.context.getString(R.string.NoTitile)
+        viewBinding.title.text = items.banner_text_en
 
     }
 

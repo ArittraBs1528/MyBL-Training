@@ -47,7 +47,7 @@ class BalanceViewHolder(private val viewBinding: ItemViewBinding) :
 
         //handle recharge button section
         val loan = userBalanceData?.loan
-        if (userBalanceData?.amount != null && userBalanceData.amount > 10.00) {
+        if (userBalanceData?.amount != null && userBalanceData.amount < 20.00) {
             viewBinding.rechargeBtn.setBackgroundResource(R.drawable.button_red_back)
         }
 
