@@ -9,7 +9,6 @@ class ApiClient {
     companion object {
 
         fun getRetrofit(): Retrofit {
-
             return Retrofit.Builder().baseUrl(HeaderConstraint.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build()
 

@@ -8,4 +8,7 @@ interface HomeApi {
     @GET("949326c71065be4436c1")
     suspend fun getHomeInfo(): Response<BaseResponse>
 
+    @GET("2bb453b792f2d858b606")
+    suspend fun getHomeInfo2(): Response<BaseResponse>
+
 }

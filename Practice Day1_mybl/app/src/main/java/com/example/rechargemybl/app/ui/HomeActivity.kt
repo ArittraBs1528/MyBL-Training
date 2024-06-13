@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
     private val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     private val itemDecoration = UserItemViewMargin()
 
+    private var count = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,26 +48,20 @@ class HomeActivity : AppCompatActivity() {
 
         loadedDataFromApi()
 
-        binding.swiperefresh.setColorSchemeColors(
-            ContextCompat.getColor(
-                this,
-                R.color.orange
-            )
-        )
-        binding.swiperefresh.isRefreshing = true
+        setSwipeRefreshColors()
+
+        showSwipeRefreshIndicator()
+
 
         //balance section  - observe viewModel BalanceData
         viewModel.data.observe(this) { data ->
-            if (data.isNotEmpty()) {
-                binding.swiperefresh.isRefreshing = false
-                updateData(data)
-            } else {
-                binding.swiperefresh.isRefreshing = true
-            }
+            handleDataRefreshResult(data)
         }
+
+
         //swipe refresh
         binding.swiperefresh.setOnRefreshListener {
-            binding.swiperefresh.isRefreshing = false
+            triggerDataRefresh()
         }
     }
 
@@ -90,5 +85,40 @@ class HomeActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = color
     }
+
+    private fun setSwipeRefreshColors() {
+        binding.swiperefresh.setColorSchemeColors(
+            ContextCompat.getColor(
+                this,
+                R.color.orange
+            )
+        )
+    }
+
+    private fun showSwipeRefreshIndicator() {
+        binding.swiperefresh.isRefreshing = true
+    }
+
+    private fun handleDataRefreshResult(data: List<Data>) { // Replace YourDataType with the actual type
+        if (data.isNotEmpty()) {
+            binding.swiperefresh.isRefreshing = false
+            updateData(data)
+        } else {
+            binding.swiperefresh.isRefreshing = true
+            // You might also want to display an error message or retry option here
+        }
+    }
+
+    private fun triggerDataRefresh() {
+        binding.swiperefresh.isRefreshing = false
+        count++
+        if (count % 2 == 0) {
+            viewModel.getAllHomeData()
+        } else {
+            viewModel.getAllHomeData2()
+        }
+    }
+
+
 }
 

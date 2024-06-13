@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rechargemybl.app.Utility.Helpers.TYPE_BALANCE
-import com.example.rechargemybl.app.model.apiModel.BalanceCard
 import com.example.rechargemybl.app.model.apiModel.Data
 import com.example.rechargemybl.app.network.ApiClient
 import com.example.rechargemybl.app.network.HomeApi.HomeApi
@@ -36,5 +34,11 @@ class HomeViewModel : ViewModel() {
 //        println("Our Data  ${response.body()}")
 
     }
+
+    fun getAllHomeData2() = viewModelScope.launch {
+        _data.value = homeRepository.getHomeData2()?.filter { it.isEligible == true }
+
+    }
+
 
 }
