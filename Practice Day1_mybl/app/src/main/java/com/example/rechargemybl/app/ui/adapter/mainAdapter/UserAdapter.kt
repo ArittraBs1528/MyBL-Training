@@ -87,7 +87,9 @@ class UserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is GenericSliderViewHolder -> dataSet.getOrNull(position)?.data?.let{
                 holder.bind(
                     (it as? ArrayList<Map<String,Any>>)?.map{it.toObject<SlideData>()},
-                    dataSet.getOrNull(position)?.icon
+                    dataSet.getOrNull(position)?.icon,
+                    dataSet.getOrNull(position)?.titleEn,
+                    dataSet.getOrNull(position)?.titleBn
                 )
             }
         }

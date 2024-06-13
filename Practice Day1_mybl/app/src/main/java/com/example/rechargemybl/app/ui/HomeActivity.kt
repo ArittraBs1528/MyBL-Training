@@ -47,6 +47,12 @@ class HomeActivity : AppCompatActivity() {
 
         loadedDataFromApi()
 
+        binding.swiperefresh.setColorSchemeColors(
+            ContextCompat.getColor(
+                this,
+                R.color.orange
+            )
+        )
         binding.swiperefresh.isRefreshing = true
 
         //balance section  - observe viewModel BalanceData

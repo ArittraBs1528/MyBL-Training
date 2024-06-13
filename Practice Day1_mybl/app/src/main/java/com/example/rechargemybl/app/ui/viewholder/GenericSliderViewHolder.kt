@@ -32,13 +32,16 @@ class GenericSliderViewHolder(private val viewBinding: GenericSliderBinding) :
         }
     }
 
-    fun bind(listItems: List<SlideData>?, icon: String?) {
+    fun bind(listItems: List<SlideData>?, icon: String?, titleEn: String?, titleBn: String?) {
 
-//        viewBinding.sobDekhun.
         genericSliderChildAdapter.submitData(listItems)
         Glide.with(viewBinding.icon.context)
             .load(icon)
             .into(viewBinding.icon)
+
+        titleEn?.let {
+            viewBinding.genericSliderTitle.text = it
+        }
     }
 
 

@@ -11,3 +11,8 @@ inline fun <T, reified R> T.convert(): R {
     val json = Gson().toJson(this)
     return Gson().fromJson(json, object : TypeToken<R>() {}.type)
 }
+
+fun Double?.orZero(): Double = this ?: 0.0
+fun Int?.orZero(): Int = this ?: 0
+
+fun Int.addTwo() = this + 2

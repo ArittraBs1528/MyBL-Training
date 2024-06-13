@@ -11,6 +11,8 @@
     <string name="paystation">সৌজন্যেঃ</string>
     <string name="seeAll">সব দেখুন</string>
     <string name="bills">বিলস</string>
+    <string name="valid_till">Valid till %s</string>
+    <string name="balance">Valid till %s</string>
 
     <string name="currentBalance">Current Balance</string>
     <string name="recharge">Recharge</string>
@@ -19,6 +21,7 @@
 
 
     <string name="planAndOffer">প্ল্যান ও অফার</string>
+    <string name="NoTitile">No Title</string>
 
 
 

@@ -9,6 +9,7 @@ import com.example.rechargemybl.R
 import com.example.rechargemybl.app.Utility.Helpers
 import com.example.rechargemybl.app.model.apiModel.BalanceCard
 import com.example.rechargemybl.app.model.apiModel.Loan
+import com.example.rechargemybl.app.utility.orZero
 import com.example.rechargemybl.databinding.ItemViewBinding
 import java.util.Locale
 
@@ -31,23 +32,24 @@ class BalanceViewHolder(private val viewBinding: ItemViewBinding) :
         //  --- handle left Tk Section
         val userBalanceData = accountBalance?.balance
 
-        val formattedDate = userBalanceData?.expiresIn?.let {
-            "Valid till ${Helpers.getBalanceTime(it)}"
-        } ?: ""
+        val formattedDate =
+            itemView.context.getString(R.string.valid_till, Helpers.getBalanceTime(userBalanceData?.expiresIn.toString()))
 
 
 
-        viewBinding.validText.text = Helpers.highlightBoldSubstring(formattedDate, 11)?: "Valid till"
+        viewBinding.validText.text = Helpers.highlightBoldSubstring(formattedDate, 11)
+            ?: itemView.context.getString(R.string.valid_till)
 
         userBalanceData?.amount?.let {
-            viewBinding.balance.text = Helpers.formatCurrencyBalance(it)?:"Balance"
+            viewBinding.balance.text = Helpers.formatCurrencyBalance(it)?:itemView.context.getString(R.string.balance)
         }
 
 
         //handle recharge button section
         val loan = userBalanceData?.loan
-//        if (user.currentBalance!!.toDouble() < 10.00)
-//            binding.rechargeBtn.setBackgroundResource(R.drawable.button_red_back)
+        if (userBalanceData?.amount != null && userBalanceData.amount > 10.00) {
+            viewBinding.rechargeBtn.setBackgroundResource(R.drawable.button_red_back)
+        }
 
 
         //handle loan button section
@@ -69,7 +71,7 @@ class BalanceViewHolder(private val viewBinding: ItemViewBinding) :
 
 
         if(accountBalance!=null){
-            if (accountBalance?.internet?.remaining!! < accountBalance.internet.threshold!!) {
+            if (accountBalance.internet?.remaining.orZero() < accountBalance.internet?.threshold.orZero() ) {
                 viewBinding.internetBalanceNull.visibility = View.VISIBLE
             }
         }else
@@ -84,15 +86,16 @@ class BalanceViewHolder(private val viewBinding: ItemViewBinding) :
             viewBinding.minSec.text = accountBalance.minutes?.unit.toString()
         }
         if (accountBalance != null) {
-            if (accountBalance.minutes?.remaining!! < accountBalance.minutes.threshold!!) {
+            if (accountBalance.minutes?.remaining.orZero() < accountBalance.minutes?.threshold.orZero()) {
                 viewBinding.minuteNull.visibility = View.VISIBLE
             }
         }
 
 
+
         //handle sms section
         if (accountBalance != null) {
-            if (accountBalance.sms?.remaining!! < accountBalance.minutes?.threshold!!) {
+            if (accountBalance.sms?.remaining.orZero() < accountBalance.minutes?.threshold.orZero()) {
                 viewBinding.msgNull.visibility = View.VISIBLE
             }
         }

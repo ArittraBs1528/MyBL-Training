@@ -14,7 +14,7 @@
         android:paddingVertical="13dp">
 
         <TextView
-            android:id="@+id/sobDekhun"
+            android:id="@+id/genericSliderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -33,7 +33,7 @@
             android:layout_marginEnd="8dp"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/sobDekhun"
+            app:layout_constraintTop_toTopOf="@+id/genericSliderTitle"
             app:srcCompat="@drawable/arrow_right3" />
 
         <TextView
