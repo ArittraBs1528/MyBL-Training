@@ -41,9 +41,9 @@ class AudioBookViewHolder(private val viewBinding: ItemsViewBillsBinding) :
 
 
         if (audiobookData.cta == null) {
-            viewBinding.ctaGrp.visibility = View.GONE
+            viewBinding.ctaGrpBills.visibility = View.GONE
         }else{
-            viewBinding.ctaGrp.visibility = View.VISIBLE
+            viewBinding.ctaGrpBills.visibility = View.VISIBLE
         }
 
 

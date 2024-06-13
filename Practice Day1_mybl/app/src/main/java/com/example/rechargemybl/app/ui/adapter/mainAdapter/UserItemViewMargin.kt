@@ -18,7 +18,7 @@ class UserItemViewMargin : RecyclerView.ItemDecoration() {
         val itemCount = state.itemCount
         if (position != itemCount - 1) {
 
-            outRect.bottom = 15
+            outRect.bottom = 18
         }
 //        outRect.top = 16
 
