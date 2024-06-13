@@ -43,31 +43,28 @@ class HomeActivity : AppCompatActivity() {
         }
         setStatusBarColor(ContextCompat.getColor(this, R.color.orange))
 
-        setUpUi()
-        //loading data from api
+        setUpAdapterUi()
+
         loadedDataFromApi()
 
+        binding.swiperefresh.isRefreshing = true
 
         //balance section  - observe viewModel BalanceData
         viewModel.data.observe(this) { data ->
-            updateData(data)
+            if (data.isNotEmpty()) {
+                binding.swiperefresh.isRefreshing = false
+                updateData(data)
+            } else {
+                binding.swiperefresh.isRefreshing = true
+            }
         }
-
-
+        //swipe refresh
         binding.swiperefresh.setOnRefreshListener {
-//            count++;
             binding.swiperefresh.isRefreshing = false
-
-//            if (count % 2 == 0)
-//                updateData(createDemoUser2())
-//            else
-//                updateData(createDemoUser())
         }
-
-
     }
 
-    private fun setUpUi() {
+    private fun setUpAdapterUi() {
         binding.peopleList.layoutManager = layoutManager
         binding.peopleList.addItemDecoration(itemDecoration)
         binding.peopleList.adapter = userAdapter
