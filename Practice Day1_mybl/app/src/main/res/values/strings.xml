@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">RechargeMybl</string>
+    <string name="timeFormat">%1$d minutes ago</string>
+    <string name="dueLoanAmount">Tk. %1$s</string>
+    <string name="takeLoan">Get %1$s Tk Loan</string>
+    <string name="internetAmount">%1$s</string>
+    <string name="internetUnitMB">MB</string>
+    <string name="internetUnitGB">GB</string>
+    <string name="Minutes">Min %1$s</string>
+    <string name="soujonno">%1$s  </string>
+    <string name="paystation">সৌজন্যেঃ</string>
+    <string name="seeAll">সব দেখুন</string>
+    <string name="bills">বিলস</string>
+
+    <string name="currentBalance">Current Balance</string>
+    <string name="recharge">Recharge</string>
+    <string name="loan">Loan Due</string>
+    <string name="SMS">SMS</string>
+
+
+    <string name="planAndOffer">প্ল্যান ও অফার</string>
+
+
+
+
+</resources>
